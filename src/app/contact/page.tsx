@@ -32,7 +32,7 @@ const testimonySchema = baseSchema.shape({
     .required('Share permission is required'),
 });
 
-export const initialFormData: FormData = {
+const initialFormData: FormData = {
   firstName: '',
   lastName: '',
   email: '',
