@@ -25,7 +25,7 @@ const baseSchema = yup.object().shape({
     .required('Message is required'),
 });
 
-export const testimonySchema = baseSchema.shape({
+const testimonySchema = baseSchema.shape({
   sharePermission: yup
     .string()
     .oneOf(['yes-full', 'yes-initials', 'yes-anonymous', 'no'])
