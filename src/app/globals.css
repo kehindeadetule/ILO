@@ -2,20 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Amsterdam';
+  src: url('/assets/fonts/amsterdam/Amsterdam.otf')
+    format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    color: #555555;
+    overflow-x: hidden;
   }
-}
+  
+  /* body {
+    overflow-x: hidden; 
+    width: 100vw;
+  }*/
+} 
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lora', serif;
+  box-sizing: border-box;
+  color: #555555;
+}
+
+h1 {
+  font-family: 'Amsterdam', cursive;
+  font-weight: 700;
+}
+
+code {
+  font-family: monospace;
 }
