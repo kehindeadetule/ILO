@@ -10,12 +10,7 @@ interface LoginForm {
   password: string;
 }
 
-interface AuthCommentProps {
-  postId: number;
-  postDate: string;
-}
-
-const AuthComment: React.FC<AuthCommentProps> = () => {
+const Login = () => {
   const router = useRouter();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -157,4 +152,4 @@ const AuthComment: React.FC<AuthCommentProps> = () => {
   );
 };
 
-export default AuthComment;
+export default Login;
