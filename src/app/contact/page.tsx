@@ -11,7 +11,7 @@ import Helmet from '@/components/utils/config/Helmet';
 type FormType = 'prayer' | 'testimony' | 'questions';
 
 // Form Validation Schemas
-export const baseSchema = yup.object().shape({
+const baseSchema = yup.object().shape({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
   email: yup

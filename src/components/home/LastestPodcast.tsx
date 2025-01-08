@@ -26,7 +26,7 @@ const LatestPodcasts: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Memoize the FastAverageColor instance
-  const fac = useMemo(() => new FastAverageColor(), []);
+  // const fac = useMemo(() => new FastAverageColor(), []);
 
   const storeEpisodes = useCallback((episodes: MediaEpisode[]) => {
     try {

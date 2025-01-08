@@ -155,9 +155,19 @@ const BookingForm: React.FC = () => {
       setFormData(initialFormData);
       setMessage(true);
       window.scrollTo(0, 0);
-    } catch (error) {
+    } catch (error: any) {
       // console.error('Error sending email:', error);
+      if (error instanceof yup.ValidationError) {
+        const newErrors: FormErrors = {};
+        error.inner.forEach((err) => {
+          if (err.path) {
+            newErrors[err.path] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
       alert('Failed to send email. Please try again.');
+      return false;
     } finally {
       setIsSubmitting(false);
     }

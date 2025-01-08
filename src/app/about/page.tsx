@@ -1,5 +1,4 @@
 import Helmet from '@/components/utils/config/Helmet';
-import Head from 'next/head';
 
 const AboutUs = () => {
   return (

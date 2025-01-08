@@ -265,7 +265,7 @@ const MediaEpisodes: React.FC = () => {
             episode.content.rendered
           );
 
-          const shortDescription = stripHtml(formatedContent).slice(0, 150);
+          // const shortDescription = stripHtml(formatedContent).slice(0, 150);
 
           if (!imageUrl) return null;
 
@@ -279,6 +279,7 @@ const MediaEpisodes: React.FC = () => {
                 siteName='Ibidun Layi Ojo'
                 canonicalUrl={`${window.location.origin}/media/${currentShow?.tagId}}`}
               /> */}
+              
               <div
                 key={episode.id}
                 className='rounded-2xl text-white md:p-10  mb-6 transition-colors duration-300 hover:shadow-lg my-14 md:bg-transparent bg-white p-5 md:shadow-none shadow-[0_4px_8px_rgba(0,0,0,0.1)]'

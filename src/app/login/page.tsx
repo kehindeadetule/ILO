@@ -15,7 +15,7 @@ interface AuthCommentProps {
   postDate: string;
 }
 
-const AuthComment: React.FC<AuthCommentProps> = ({ postId, postDate }) => {
+const AuthComment: React.FC<AuthCommentProps> = () => {
   const router = useRouter();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
