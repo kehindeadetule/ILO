@@ -1,4 +1,4 @@
-'use-client'
+'use-client';
 import React, { useState, useMemo } from 'react';
 import { FormField } from '../contact-us/FormModal';
 import * as yup from 'yup';
@@ -16,6 +16,7 @@ import { decodeHtmlEntities } from '../utils/utils';
 import CircleLoader from '../utils/Loader';
 import CustomAlert from '../utils/CustomAlert';
 import { useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 interface ExtendedCommentProps extends CommentProps {
   postDate: string;
 }
@@ -374,8 +375,8 @@ const Comments: React.FC<ExtendedCommentProps> = ({ postId, postDate }) => {
       } else {
         setSubmitLoading(false);
 
-        const error = err as any;
-        if (error?.data?.status === 403) {
+        const error = err as AxiosError;
+        if (error?.status === 403) {
           router.push('/login');
           setErrors({
             content: 'Session expired. Please login again.',
@@ -422,8 +423,8 @@ const Comments: React.FC<ExtendedCommentProps> = ({ postId, postDate }) => {
         setErrors(validationErrors);
       } else {
         // Handle API errors
-        const error = err as any;
-        if (error?.data?.status === 403) {
+        const error = err as AxiosError;
+        if (error?.status === 403) {
           router.push('/login');
           setErrors({
             content: 'Session expired. Please login again.',
