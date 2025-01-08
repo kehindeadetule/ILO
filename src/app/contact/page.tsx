@@ -102,7 +102,7 @@ const ContactPage = () => {
       }
       setErrors({});
       return true;
-    } catch (error: any) {
+    } catch (error) {
       if (error instanceof yup.ValidationError) {
         const newErrors: FormErrors = {};
         error.inner.forEach((err) => {
@@ -161,7 +161,8 @@ const ContactPage = () => {
           ) : (
             <section className='container md:w-[87%] mx-auto md:pt-40 pt-28 relative mb-20 '>
               <h1 className='text-2xl text-center mt-6 md:mb-14 mb-10 tracking-wider leading-[4.5rem]'>
-                Let's Start A <br className='md:hidden block' /> Conversation
+                Let&apos;s Start A <br className='md:hidden block' />{' '}
+                Conversation
               </h1>
               <section className='grid md:grid-cols-4 md:gap-10'>
                 <div className='text-white md:col-span-2'>
@@ -178,10 +179,10 @@ const ContactPage = () => {
                     </h2>
                     <p className='text-lg'>
                       We believe in the power of prayer and we would love to
-                      pray for you. "Therefore confess your sins to each other
-                      and pray for each other so that you may be healed. The
-                      prayer of a righteous person is powerful and effective.
-                      (James 5:16)".
+                      pray for you. &quot;Therefore confess your sins to each
+                      other and pray for each other so that you may be healed.
+                      The prayer of a righteous person is powerful and
+                      effective. (James 5:16)&quot;.
                     </p>
                     <button
                       onClick={() => handleOpen('prayer')}
@@ -196,9 +197,9 @@ const ContactPage = () => {
                     </h2>
                     <p className='text-lg'>
                       We love hearing stories about what God is doing. If you
-                      have a testimony you'd like to share, you can use the form
-                      below. Please indicate on the form whether we have your
-                      permission to share it with others.
+                      have a testimony you&apos;d like to share, you can use the
+                      form below. Please indicate on the form whether we have
+                      your permission to share it with others.
                     </p>
                     <button
                       onClick={() => handleOpen('testimony')}

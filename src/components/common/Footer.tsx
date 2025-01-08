@@ -12,7 +12,7 @@ const Footer = () => {
           <h2 className='font-semibold text-xl pt-8 mb-4'>SUBSCRIBE</h2>
           <p className='textlg'>
             Subscribe to get new blog posts, tips & new photos delivered to your
-            inbox. <br className='hidden md:block' /> Let's stay connected!
+            inbox. <br className='hidden md:block' /> Let&apos;s stay connected!
           </p>
           <div className='md:space-x-4 mt-12 md:p-0 p-4'>
             <input

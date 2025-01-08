@@ -1,8 +1,6 @@
 'use client';
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
-// import { Link } from 'react-router-dom';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
-import { FastAverageColor } from 'fast-average-color';
 
 import {
   extractAndRemoveImage,
@@ -24,9 +22,6 @@ const LatestPodcasts: React.FC = () => {
   const [episodeColors, setEpisodeColors] = useState<EpisodeColors>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Memoize the FastAverageColor instance
-  // const fac = useMemo(() => new FastAverageColor(), []);
 
   const storeEpisodes = useCallback((episodes: MediaEpisode[]) => {
     try {
