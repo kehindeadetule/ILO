@@ -4,12 +4,6 @@ import {
   defaultMetaTags,
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
-import { ReactNode } from 'react';
-
-interface BlogLayoutProps {
-  children: ReactNode;
-  params: string;
-}
 
 interface Blog {
   id: number;
@@ -17,11 +11,7 @@ interface Blog {
   content: { rendered: string };
 }
 // Dynamic metadata generation
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { id: string } }) {
   try {
     console.log(
       'Fetching blog from:',
@@ -77,6 +67,10 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogLayout({ children }: BlogLayoutProps) {
+export default function BlogLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }
