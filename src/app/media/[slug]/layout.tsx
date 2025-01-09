@@ -15,10 +15,10 @@ interface Media {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    // const slug = params.slug;
+    const { slug } = await params;
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=205&orderby=date&order=desc`
@@ -31,7 +31,7 @@ export async function generateMetadata({
     const media = await response.json();
 
     // Find the episode by matching the slug
-    const episode = media.find((b: Media) => b.slug === params.slug);
+    const episode = media.find((b: { slug: string }) => b.slug === slug);
 
     if (episode) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -44,7 +44,7 @@ export async function generateMetadata({
         openGraph: {
           title: episode.title.rendered,
           description: formatedContent.slice(0, 160),
-          url: `https://blog.ibidunlayiojo.com/media/${params.slug}`,
+          url: `https://blog.ibidunlayiojo.com/media/${(await params).slug}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
@@ -56,7 +56,7 @@ export async function generateMetadata({
         },
       };
     } else {
-      console.warn(`Episode with slug "${params.slug}" not found`);
+      console.warn(`Episode not found`);
     }
   } catch (error) {
     console.error('Error generating metadata:', error);
