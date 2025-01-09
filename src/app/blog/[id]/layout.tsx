@@ -14,7 +14,7 @@ interface LayoutProps {
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { id: string | number };
 }): Promise<Metadata> {
   try {
     console.log(
