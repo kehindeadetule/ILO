@@ -13,14 +13,12 @@ interface Blog {
   content: { rendered: string };
 }
 
-// Use `LayoutProps` from Next.js's `next/layouts`
-type GenerateMetadataProps = {
-  params: { id: string }; // Dynamic parameter passed in the URL
-};
-
+// The 'params' will be automatically passed in the layout function
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: {
+  params: { id: string }; // Dynamic parameter passed in the URL
+}): Promise<Metadata> {
   try {
     const { id } = params; // Access dynamic `id` from the URL params
 
