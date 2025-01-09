@@ -18,7 +18,7 @@ export const pageMetaTags = {
     title: 'About | Ibidun Layi Ojo',
     description:
       'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
-    image: '/assets/about-banner.png',
+    image: '/assets/show-banner.png',
     type: 'website',
   },
   blog: {
