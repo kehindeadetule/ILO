@@ -11,7 +11,6 @@ import {
   decodeHtmlEntities,
   truncateString,
   toTitleCase,
-  stripHtml,
 } from '@/components/utils/utils';
 import Link from 'next/link';
 import Comments from '@/components/blog/Comment';
