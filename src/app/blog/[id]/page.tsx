@@ -120,7 +120,6 @@ const BlogPost: React.FC = () => {
             <button
               onClick={handlePrevious}
               className='hover:underline text-[#2F8668] flex'
-              // disabled={!prevBlog}
             >
               {prevBlog ? (
                 <>
