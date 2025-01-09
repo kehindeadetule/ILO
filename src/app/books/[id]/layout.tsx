@@ -11,14 +11,16 @@ interface Book {
   content: { rendered: string };
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ id: string }> | { id: string };
-}): Promise<Metadata> {
+type GenerateMetadataProps = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata(
+  props: GenerateMetadataProps
+): Promise<Metadata> {
   try {
-    // Await the params if they're a promise
-    const resolvedParams = await Promise.resolve(params);
+    const { id } = props.params;
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`,
@@ -30,7 +32,7 @@ export async function generateMetadata({
     }
 
     const books = await response.json();
-    const book = books.find((b: Book) => b.id === Number(resolvedParams.id));
+    const book = books.find((b: Book) => b.id === Number(id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -44,7 +46,7 @@ export async function generateMetadata({
         openGraph: {
           title: toTitleCase(book.title.rendered),
           description: formatedContent.slice(0, 160),
-          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${resolvedParams.id}`,
+          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
@@ -66,6 +68,7 @@ export async function generateMetadata({
   };
 }
 
+// Layout component with no params prop
 export default function BookLayout({
   children,
 }: {
