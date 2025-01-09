@@ -13,9 +13,13 @@ interface Blog {
   content: { rendered: string };
 }
 
-export async function generateMetadata({params}: any): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
   try {
-    const { id } = params; 
+    const id = (await params).id;
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
