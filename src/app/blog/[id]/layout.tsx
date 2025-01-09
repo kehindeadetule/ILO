@@ -7,6 +7,7 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   params: { id: string };
 }
 
@@ -35,7 +36,7 @@ export async function generateMetadata({
     const books = await response.json();
     console.log('Fetched books:', books);
     console.log('Params ID:', params.id);
-    
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const book = books.find((b: any) => b.id === Number(params.id));
 
