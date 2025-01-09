@@ -80,6 +80,6 @@ type LayoutProps = {
   params: { id: string };
 };
 
-export default function BookLayout({ children, params }: LayoutProps) {
+export default function BookLayout({ children }: LayoutProps) {
   return <>{children}</>;
 }

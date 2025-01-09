@@ -79,6 +79,6 @@ type LayoutProps = {
   params: { id: string };
 };
 
-export default function BlogLayout({ children, params }: LayoutProps) {
+export default function BlogLayout({ children }: LayoutProps) {
   return <>{children}</>;
 }
