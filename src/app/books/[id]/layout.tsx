@@ -34,7 +34,7 @@ export async function generateMetadata({
     console.log('Fetched books:', books);
     console.log('Params ID:', params.id);
 
-    const book = books.find((b: any) => b.id === Number(params.id));
+    const book = books.find((b: { id: number; }) => b.id === Number(params.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
