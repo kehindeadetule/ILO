@@ -11,19 +11,18 @@ interface Book {
   content: { rendered: string };
 }
 
-// Define the correct metadata types
-type GenerateMetadataProps = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
-// Dynamic metadata generation
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: {
+  params: Promise<{ id: string }> | { id: string };
+}): Promise<Metadata> {
   try {
+    // Await the params if they're a promise
+    const resolvedParams = await Promise.resolve(params);
+
     const response = await fetch(
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`,
+      { next: { revalidate: 3600 } }
     );
 
     if (!response.ok) {
@@ -31,7 +30,7 @@ export async function generateMetadata({
     }
 
     const books = await response.json();
-    const book = books.find((b: Book) => b.id === Number(params.id));
+    const book = books.find((b: Book) => b.id === Number(resolvedParams.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -39,12 +38,13 @@ export async function generateMetadata({
       );
 
       return {
+        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: book.title.rendered,
         description: formatedContent.slice(0, 160),
         openGraph: {
           title: toTitleCase(book.title.rendered),
           description: formatedContent.slice(0, 160),
-          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${params.id}`,
+          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${resolvedParams.id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
@@ -66,7 +66,6 @@ export async function generateMetadata({
   };
 }
 
-// Define the layout component without explicit params typing
 export default function BookLayout({
   children,
 }: {
