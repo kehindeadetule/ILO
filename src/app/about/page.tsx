@@ -1,17 +1,51 @@
-import Helmet from '@/components/utils/config/Helmet';
+// import Helmet from '@/components/utils/config/Helmet';
+import Head from 'next/head';
 
-export const metadata = {
-  title: 'About | Ibidun Layi Ojo',
-  description:
-    'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
-  image: '/assets/about-banner.png',
-  type: 'website',
-};
+// export const metadata = {
+//   title: 'About | Ibidun Layi Ojo',
+//   description:
+//     'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
+//   image: '/assets/about-banner.png',
+//   type: 'website',
+// };
 
 const AboutUs = () => {
   return (
     <>
       {/* <Helmet pageKey='about' /> */}
+      <Head>
+        <title>About | Ibidun Layi Ojo</title>
+        <meta
+          name='description'
+          content='Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.'
+        />
+
+        {/* Open Graph meta tags */}
+        <meta property='og:title' content='About | Ibidun Layi Ojo' />
+        <meta
+          property='og:description'
+          content='Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.'
+        />
+        <meta
+          property='og:image'
+          content='https://ilo-m8j1.vercel.app/assets/about-banner.png'
+        />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='https://ilo-m8j1.vercel.app/about' />
+
+        {/* Twitter meta tags */}
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content='About | Ibidun Layi Ojo' />
+        <meta
+          name='twitter:description'
+          content='Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.'
+        />
+        <meta
+          name='twitter:image'
+          content='https://ilo-m8j1.vercel.app/assets/about-banner.png'
+        />
+      </Head>
+      
       <section>
         <div className='grid md:grid-cols-2'>
           <div className='block md:hidden mt-28'>
