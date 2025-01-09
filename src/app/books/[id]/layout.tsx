@@ -5,12 +5,11 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-interface LayoutProps {
-  children: React.ReactNode;
-  // @ts-ignore to disable type error for params
-  params: { id: string };
+interface Book {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
 }
-
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
@@ -37,8 +36,7 @@ export async function generateMetadata({
     console.log('Fetched books:', books);
     console.log('Params ID:', params.id);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const book = books.find((b: any) => b.id === Number(params.id));
+    const book = books.find((b: Book) => b.id === Number(params.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -76,6 +74,11 @@ export async function generateMetadata({
   };
 }
 
-export default function BookLayout({ children }: LayoutProps) {
+type BookLayoutProps = {
+  children: React.ReactNode;
+  params: { id: string };
+};
+
+export default function BookLayout({ children }: BookLayoutProps) {
   return <>{children}</>;
 }
