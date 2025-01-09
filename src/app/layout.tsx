@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "Welcome to Ibidun Layi Ojo's official website.",
     url: 'https://blog.ibidunlayiojo.com/wp-json/wp/v2',
     images: [
-      { url: 'https://ilo-m8j1.vercel.app/assets/about-banner.png' },
+      { url: 'https://blog.ibidunlayiojo.com/wp-json/wp/v2/about-banner.png' },
     ],
     siteName: 'Ibidun Layi Ojo',
   },
