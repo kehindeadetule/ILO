@@ -5,7 +5,7 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-interface LayoutProps {
+interface BlogLayoutProps {
   children: React.ReactNode;
   params: { id: string };
 }
@@ -76,6 +76,6 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogLayout({ children }: LayoutProps) {
+export default function BlogLayout({ children }: BlogLayoutProps) {
   return <>{children}</>;
 }

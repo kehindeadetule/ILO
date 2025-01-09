@@ -5,7 +5,7 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-interface LayoutProps {
+interface BookLayoutProps {
   children: React.ReactNode;
   params: { id: string };
 }
@@ -27,7 +27,9 @@ export async function generateMetadata({
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
     );
 
-    const response = await fetch(`https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`);
+    const response = await fetch(
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
+    );
 
     console.log('Response status:', response.status);
 
@@ -77,7 +79,6 @@ export async function generateMetadata({
   };
 }
 
-
-export default function BookLayout({ children }: LayoutProps) {
+export default function BookLayout({ children }: BookLayoutProps) {
   return <>{children}</>;
 }
