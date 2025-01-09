@@ -4,7 +4,6 @@ import {
   defaultMetaTags,
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
-import parse from 'html-react-parser';
 
 interface Book {
   id: number;
