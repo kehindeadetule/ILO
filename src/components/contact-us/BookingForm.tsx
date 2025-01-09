@@ -6,6 +6,8 @@ import { FormField } from './FormModal';
 import { BookingFormData } from '../utils/types';
 import Message from './Message';
 import Helmet from '../utils/config/Helmet';
+import type { Metadata } from 'next';
+import { pageMetaTags, defaultMetaTags } from '../utils/config/metaTags';
 
 interface Country {
   name: {
@@ -17,6 +19,21 @@ interface Country {
 interface FormErrors {
   [key: string]: string;
 }
+
+ const metadata: Metadata = {
+  title: pageMetaTags.booking.title,
+  description: pageMetaTags.booking.description,
+  openGraph: {
+    title: pageMetaTags.booking.title,
+    description: pageMetaTags.booking.description,
+    url: 'https://yourdomain.com',
+    images: [{ url: pageMetaTags.booking.image }],
+    siteName: defaultMetaTags.siteName,
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+};
 
 const initialFormData: BookingFormData = {
   firstName: '',

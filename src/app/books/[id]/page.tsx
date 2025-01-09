@@ -7,11 +7,9 @@ import CircleLoader from '@/components/utils/Loader';
 import {
   formatedBookContent,
   decodeHtmlEntities,
-  stripHtml,
 } from '@/components/utils/utils';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import Helmet from '@/components/utils/config/Helmet';
 
 interface Book {
   id: number;
@@ -21,7 +19,7 @@ interface Book {
   excerpt: { rendered: string };
 }
 
-const BlogBook: React.FC = () => {
+const BookPost: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<Book | null>(null);
 
@@ -46,18 +44,6 @@ const BlogBook: React.FC = () => {
 
   return (
     <section className='relative'>
-      {book && (
-        <Helmet
-          pageKey='blog'
-          customTitle={decodeHtmlEntities(book.title.rendered)}
-          customDescription={stripHtml(
-            decodeHtmlEntities(book.excerpt.rendered)
-          )}
-          customImage={imageUrl || '/images/default-og-image.jpg'}
-          customType='article'
-          // canonicalUrl={`${window.location.origin}/blog/${blog.id}`}
-        />
-      )}
       <div>
         <img
           src='/assets/book-sideline-l.png'
@@ -108,7 +94,7 @@ const BlogBook: React.FC = () => {
 
           <Link
             target='_blank'
-            href={amazonUrl as string}
+            href={amazonUrl as string || ''}
             className='text-sm md:py-2.5 py-3 text-white px-12 md:my-24 mt-14 mb-20 flex justify-center md:w-1/5 w-1/2 mx-auto bg-black object-contain'>
             BUY NOW
           </Link>
@@ -130,4 +116,4 @@ const BlogBook: React.FC = () => {
   );
 };
 
-export default BlogBook;
+export default BookPost;

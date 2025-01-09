@@ -4,8 +4,20 @@ import { FaPlay } from 'react-icons/fa';
 import { FastAverageColor } from 'fast-average-color';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { ImageSet, MediaEpisode, EpisodeColors, MediaShow, StoredEpisodes } from '@/components/utils/types';
-import { extractAndRemoveImage, toTitleCase, stripHtml, decodeHtmlEntities, extractYouTubeUrl } from '@/components/utils/utils';
+import {
+  ImageSet,
+  MediaEpisode,
+  EpisodeColors,
+  MediaShow,
+  StoredEpisodes,
+} from '@/components/utils/types';
+import {
+  extractAndRemoveImage,
+  toTitleCase,
+  stripHtml,
+  decodeHtmlEntities,
+  extractYouTubeUrl,
+} from '@/components/utils/utils';
 
 const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
@@ -120,7 +132,6 @@ const MediaEpisodes: React.FC = () => {
 
         const imageLoadPromise = new Promise((resolve, reject) => {
           img.onload = () => resolve(img);
-          img.onerror = () => reject(new Error('Failed to load image'));
         });
 
         img.src = `${imageUrl}${
@@ -265,59 +276,45 @@ const MediaEpisodes: React.FC = () => {
             episode.content.rendered
           );
 
-          // const shortDescription = stripHtml(formatedContent).slice(0, 150);
-
           if (!imageUrl) return null;
 
           return (
-            <>
-              {/* <MetaTags
-                title={toTitleCase(currentShow?.title || 'Media')}
-                description={shortDescription}
-                image={imageUrl || '../assets/logo.png'}
-                type='article'
-                siteName='Ibidun Layi Ojo'
-                canonicalUrl={`${window.location.origin}/media/${currentShow?.tagId}}`}
-              /> */}
-              
-              <div
-                key={episode.id}
-                className='rounded-2xl text-white md:p-10  mb-6 transition-colors duration-300 hover:shadow-lg my-14 md:bg-transparent bg-white p-5 md:shadow-none shadow-[0_4px_8px_rgba(0,0,0,0.1)]'
-                style={{
-                  backgroundColor:
-                    episodeColors[episode.id] || 'rgb(75, 85, 99)',
-                }}>
-                <div className='relative overflow-hidden rounded-lg '>
-                  <img
-                    src={imageUrl}
-                    alt='Episode thumbnail'
-                    className='md:w-full h-[16rem] md:h-full rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300'
-                    // onError={(e) => {
-                    //   const target = e.target as HTMLImageElement;
-                    //   target.src = heroImage;
-                    // }}
-                  />
-                </div>
-                <div className='mt-6'>
-                  {/* <time className='text-sm opacity-80'>
+            <div
+              key={episode.id}
+              className='rounded-2xl text-white md:p-10  mb-6 transition-colors duration-300 hover:shadow-lg my-14 md:bg-transparent bg-white p-5 md:shadow-none shadow-[0_4px_8px_rgba(0,0,0,0.1)]'
+              style={{
+                backgroundColor: episodeColors[episode.id] || 'rgb(75, 85, 99)',
+              }}>
+              <div className='relative overflow-hidden rounded-lg '>
+                <img
+                  src={imageUrl}
+                  alt='Episode thumbnail'
+                  className='md:w-full h-[16rem] md:h-full rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300'
+                  // onError={(e) => {
+                  //   const target = e.target as HTMLImageElement;
+                  //   target.src = heroImage;
+                  // }}
+                />
+              </div>
+              <div className='mt-6'>
+                {/* <time className='text-sm opacity-80'>
                     {new Date(episode.date).toLocaleDateString()}
                   </time> */}
-                  <h2 className='font-semibold mt-3 text-xl'>
-                    {decodeHtmlEntities(episode.title.rendered)}
-                  </h2>
-                  <p className='mt-4 opacity-90 leading-relaxed text-lg'>
-                    {stripHtml(formatedContent)}
-                  </p>
-                  <Link
-                    target='_blank'
-                    href={extractYouTubeUrl(formatedContent)}
-                    className='mt-6 rounded-lg border-2 border-white text-sm px-6 py-2 flex items-center space-x-2 hover:bg-white hover:text-black transition-colors duration-30 object-contain w-fit mb-5 md:mb-0'>
-                    <FaPlay className='mr-2' />
-                    <span>Play Episode</span>
-                  </Link>
-                </div>
+                <h2 className='font-semibold mt-3 text-xl'>
+                  {decodeHtmlEntities(episode.title.rendered)}
+                </h2>
+                <p className='mt-4 opacity-90 leading-relaxed text-lg'>
+                  {stripHtml(formatedContent)}
+                </p>
+                <Link
+                  target='_blank'
+                  href={extractYouTubeUrl(formatedContent)}
+                  className='mt-6 rounded-lg border-2 border-white text-sm px-6 py-2 flex items-center space-x-2 hover:bg-white hover:text-black transition-colors duration-30 object-contain w-fit mb-5 md:mb-0'>
+                  <FaPlay className='mr-2' />
+                  <span>Play Episode</span>
+                </Link>
               </div>
-            </>
+            </div>
           );
         })}
         <div className='flex justify-center'>

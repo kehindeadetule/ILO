@@ -4,11 +4,28 @@ import { useRouter } from 'next/navigation';
 import { FormField } from '@/components/contact-us/FormModal';
 import CustomAlert from '@/components/utils/CustomAlert';
 import Helmet from '@/components/utils/config/Helmet';
+import { pageMetaTags, defaultMetaTags } from '@/components/utils/config/metaTags';
+import type { Metadata } from 'next';
 
 interface LoginForm {
   username: string;
   password: string;
 }
+
+ const metadata: Metadata = {
+  title: pageMetaTags.login.title,
+  description: pageMetaTags.login.description,
+  openGraph: {
+    title: pageMetaTags.login.title,
+    description: pageMetaTags.login.description,
+    url: 'https://yourdomain.com',
+    images: [{ url: pageMetaTags.login.image }],
+    siteName: defaultMetaTags.siteName,
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+};
 
 const Login = () => {
   const router = useRouter();

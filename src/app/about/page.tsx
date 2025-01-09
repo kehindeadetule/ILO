@@ -1,15 +1,18 @@
+import {
+  pageMetaTags,
+  defaultMetaTags,
+} from '@/components/utils/config/metaTags';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About | Ibidun Layi Ojo',
-  description:
-    'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
+  title: pageMetaTags.about.title,
+  description: pageMetaTags.about.description,
   openGraph: {
-    title: 'About | Ibidun Layi Ojo',
-    description:
-      'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
-    url: 'https://ilo-m8j1.vercel.app/about',
-    images: [{ url: 'https://ilo-m8j1.vercel.app/assets/about-banner.png' }],
+    title: pageMetaTags.about.title,
+    description: pageMetaTags.about.description,
+    url: 'https://yourdomain.com',
+    images: [{ url: pageMetaTags.about.image }],
+    siteName: defaultMetaTags.siteName,
   },
   twitter: {
     card: 'summary_large_image',

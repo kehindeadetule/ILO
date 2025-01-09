@@ -9,7 +9,6 @@ import {
   decodeHtmlEntities,
 } from '@/components/utils/utils';
 import Link from 'next/link';
-import Helmet from '@/components/utils/config/Helmet';
 
 const Books = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,8 +30,6 @@ const Books = () => {
 
   return (
     <>
-      <Helmet pageKey='books' />
-
       <section className='relative'>
         <main className='md:pt-36 pt-28'>
           <div>

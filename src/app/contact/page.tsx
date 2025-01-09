@@ -6,7 +6,6 @@ import Message from '@/components/contact-us/Message';
 import BookingForm from '@/components/contact-us/BookingForm';
 import FormModal from '@/components/contact-us/FormModal';
 import { FormData, FormErrors } from '@/components/utils/types';
-import Helmet from '@/components/utils/config/Helmet';
 
 type FormType = 'prayer' | 'testimony' | 'questions';
 
@@ -150,7 +149,6 @@ const ContactPage = () => {
   };
   return (
     <>
-      <Helmet pageKey='contact' />
 
       {openBooking ? (
         <BookingForm />
