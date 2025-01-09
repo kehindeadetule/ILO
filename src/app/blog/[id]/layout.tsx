@@ -1,3 +1,5 @@
+// app/blog/[id]/layout.tsx
+
 import { Metadata } from 'next';
 import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
@@ -12,18 +14,17 @@ interface Blog {
 }
 
 type GenerateMetadataProps = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { id: string }; // Dynamic route parameter
 };
 
-export async function generateMetadata(
-  props: GenerateMetadataProps
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: GenerateMetadataProps): Promise<Metadata> {
   try {
-    const { id } = props.params;
+    const { id } = params; // Accessing dynamic `id` from params
 
     const response = await fetch(
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`, // Adjusted category ID
       { next: { revalidate: 3600 } }
     );
 
@@ -68,7 +69,7 @@ export async function generateMetadata(
   };
 }
 
-// Layout component with no params prop
+// Layout component
 export default function BlogLayout({
   children,
 }: {

@@ -1,3 +1,5 @@
+// app/books/[id]/layout.tsx
+
 import { Metadata } from 'next';
 import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
@@ -12,15 +14,14 @@ interface Book {
 }
 
 type GenerateMetadataProps = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: { id: string }; // Dynamic route parameter
 };
 
-export async function generateMetadata(
-  props: GenerateMetadataProps
-): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: GenerateMetadataProps): Promise<Metadata> {
   try {
-    const { id } = props.params;
+    const { id } = params; // Access the dynamic `id` from params
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`,
@@ -41,10 +42,10 @@ export async function generateMetadata(
 
       return {
         metadataBase: new URL('https://blog.ibidunlayiojo.com'),
-        title: book.title.rendered,
+        title: toTitleCase(book.title.rendered),
         description: formatedContent.slice(0, 160),
         openGraph: {
-          title: toTitleCase(book.title.rendered),
+          title: book.title.rendered,
           description: formatedContent.slice(0, 160),
           url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${id}`,
           images: [{ url: imageUrl || '' }],
@@ -68,7 +69,7 @@ export async function generateMetadata(
   };
 }
 
-// Layout component with no params prop
+// Layout component
 export default function BookLayout({
   children,
 }: {
