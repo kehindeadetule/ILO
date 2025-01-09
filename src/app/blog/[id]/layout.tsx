@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { formatedBookContent } from '@/components/utils/utils';
+import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
   defaultMetaTags,
   pageMetaTags,
@@ -7,14 +7,14 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: { id: string | number };
+  params: { id: string };
 }
 
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string | number };
+  params: { id: string };
 }): Promise<Metadata> {
   try {
     console.log(
@@ -33,7 +33,7 @@ export async function generateMetadata({
     }
 
     const blogs = await response.json();
-    const blog = blogs.find((b: { id: number }) => b.id === Number(params.id));
+    const blog = blogs.find((b: { id: any }) => b.id === Number(params.id));
 
     if (blog) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -43,7 +43,7 @@ export async function generateMetadata({
       console.log('Found blog:', blog);
 
       return {
-        title: blog.title.rendered,
+        title: toTitleCase(blog.title.rendered),
         description: formatedContent.slice(0, 160),
         openGraph: {
           title: blog.title.rendered,

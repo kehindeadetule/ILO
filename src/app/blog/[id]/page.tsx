@@ -94,7 +94,7 @@ const BlogPost: React.FC = () => {
           </Link>
           <div className=''>
             <h2 className='text-2xl font-bold mb-2 text-center'>
-              {decodeHtmlEntities(blog.title.rendered)}
+              {decodeHtmlEntities(toTitleCase(blog.title.rendered))}
             </h2>
             <span className='text-gray-500 mb-8 block text-center'>
               {new Date(blog.date).toLocaleDateString()}

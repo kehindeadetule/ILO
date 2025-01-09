@@ -7,14 +7,14 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: { id: string | number };
+  params: { id: string };
 }
 
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string | number };
+  params: { id: string };
 }): Promise<Metadata> {
   try {
     console.log(
@@ -34,7 +34,7 @@ export async function generateMetadata({
     console.log('Fetched books:', books);
     console.log('Params ID:', params.id);
 
-    const book = books.find((b: { id: number; }) => b.id === Number(params.id));
+    const book = books.find((b: { id: any; }) => b.id === Number(params.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -44,7 +44,7 @@ export async function generateMetadata({
       console.log('Found book:', book);
 
       return {
-        title: book.title.rendered,
+        title: toTitleCase(book.title.rendered),
         description: formatedContent.slice(0, 160),
         openGraph: {
           title: toTitleCase(book.title.rendered),

@@ -7,6 +7,7 @@ import CircleLoader from '@/components/utils/Loader';
 import {
   formatedBookContent,
   decodeHtmlEntities,
+  toTitleCase,
 } from '@/components/utils/utils';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -75,7 +76,7 @@ const BookPost: React.FC = () => {
           </Link>
           <div className=''>
             <h2 className='text-3xl font-bold mb-2 text-center'>
-              {decodeHtmlEntities(book.title.rendered)}
+              {decodeHtmlEntities(toTitleCase(book.title.rendered))}
             </h2>
             <span className='text-gray-500 mb-8 block text-center'>
               {new Date(book.date).toLocaleDateString()}
@@ -94,7 +95,7 @@ const BookPost: React.FC = () => {
 
           <Link
             target='_blank'
-            href={amazonUrl as string || ''}
+            href={(amazonUrl as string) || ''}
             className='text-sm md:py-2.5 py-3 text-white px-12 md:my-24 mt-14 mb-20 flex justify-center md:w-1/5 w-1/2 mx-auto bg-black object-contain'>
             BUY NOW
           </Link>
