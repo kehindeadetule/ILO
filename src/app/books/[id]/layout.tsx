@@ -11,12 +11,16 @@ interface Book {
   title: { rendered: string };
   content: { rendered: string };
 }
+
+// Define correct types for generateMetadata
+type GenerateMetadataProps = {
+  params: { id: string };
+};
+
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+}: GenerateMetadataProps): Promise<Metadata> {
   try {
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
@@ -70,10 +74,12 @@ export async function generateMetadata({
   };
 }
 
-export default function BookLayout({
-  children,
-}: {
+// Define correct types for layout props
+type LayoutProps = {
   children: React.ReactNode;
-}) {
+  params: { id: string };
+};
+
+export default function BookLayout({ children, params }: LayoutProps) {
   return <>{children}</>;
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from 'next';
 import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
@@ -12,12 +11,15 @@ interface Blog {
   content: { rendered: string };
 }
 
+// Define correct types for generateMetadata
+type GenerateMetadataProps = {
+  params: { id: string };
+};
+
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+}: GenerateMetadataProps): Promise<Metadata> {
   try {
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
@@ -71,11 +73,12 @@ export async function generateMetadata({
   };
 }
 
-// Fixing the LayoutProps typing for layout
-export default function BlogLayout({
-  children,
-}: {
+// Define correct types for layout props
+type LayoutProps = {
   children: React.ReactNode;
-}) {
+  params: { id: string };
+};
+
+export default function BlogLayout({ children, params }: LayoutProps) {
   return <>{children}</>;
 }
