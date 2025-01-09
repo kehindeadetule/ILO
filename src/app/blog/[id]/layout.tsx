@@ -13,18 +13,20 @@ interface Blog {
   content: { rendered: string };
 }
 
+// Adjust the type of props to match what Next.js expects for layouts
 type GenerateMetadataProps = {
-  params: { id: string }; // Dynamic route parameter
+  params: { id: string }; // Dynamic parameter in URL
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateMetadata({
   params,
 }: GenerateMetadataProps): Promise<Metadata> {
   try {
-    const { id } = params; // Accessing dynamic `id` from params
+    const { id } = params; // Dynamic `id` from params
 
     const response = await fetch(
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`, // Adjusted category ID
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
       { next: { revalidate: 3600 } }
     );
 
