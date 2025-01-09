@@ -9,6 +9,11 @@ interface LayoutProps {
   children: React.ReactNode;
   params: { id: string };
 }
+interface Book {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+}
 
 // Dynamic metadata generation
 export async function generateMetadata({
@@ -34,7 +39,7 @@ export async function generateMetadata({
     console.log('Fetched books:', books);
     console.log('Params ID:', params.id);
 
-    const book = books.find((b: { id: any; }) => b.id === Number(params.id));
+    const book = books.find((b: Book) => b.id === Number(params.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(

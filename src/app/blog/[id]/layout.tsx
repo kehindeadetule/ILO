@@ -10,6 +10,11 @@ interface LayoutProps {
   params: { id: string };
 }
 
+interface Blog {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+}
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
@@ -33,7 +38,7 @@ export async function generateMetadata({
     }
 
     const blogs = await response.json();
-    const blog = blogs.find((b: { id: any }) => b.id === Number(params.id));
+    const blog = blogs.find((b: Blog) => b.id === Number(params.id));
 
     if (blog) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -70,7 +75,6 @@ export async function generateMetadata({
     description: pageMetaTags.blog.description,
   };
 }
-
 
 export default function BlogLayout({ children }: LayoutProps) {
   return <>{children}</>;
