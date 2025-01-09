@@ -1,5 +1,3 @@
-// app/blog/[id]/layout.tsx
-
 import { Metadata } from 'next';
 import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {

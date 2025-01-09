@@ -1,4 +1,3 @@
-// config/metaTags.ts
 export const defaultMetaTags = {
   siteName: 'Ibidun Layi Ojo',
   defaultAuthor: 'Ibidun Layi Ojo',
