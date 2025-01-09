@@ -7,14 +7,14 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: { id: string };
+  params: { id: string | number };
 }
 
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { id: string | number };
 }): Promise<Metadata> {
   try {
     console.log(
@@ -22,7 +22,9 @@ export async function generateMetadata({
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
     );
 
-    const response = await fetch(`https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`);
+    const response = await fetch(
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
+    );
 
     console.log('Response status:', response.status);
 
@@ -31,7 +33,7 @@ export async function generateMetadata({
     }
 
     const blogs = await response.json();
-    const blog = blogs.find((b: { id: number; }) => b.id === Number(params.id));
+    const blog = blogs.find((b: { id: number }) => b.id === Number(params.id));
 
     if (blog) {
       const { imageUrl, formatedContent } = formatedBookContent(

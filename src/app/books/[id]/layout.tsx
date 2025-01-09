@@ -7,14 +7,14 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: { id: string };
+  params: { id: string | number };
 }
 
 // Dynamic metadata generation
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { id: string | number };
 }): Promise<Metadata> {
   try {
     console.log(
