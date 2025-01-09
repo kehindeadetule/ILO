@@ -1,11 +1,12 @@
 // app/books/[id]/layout.tsx
 
 import { Metadata } from 'next';
-import { decodeHtmlEntities, formatedBookContent, toTitleCase } from '@/components/utils/utils';
+import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
   defaultMetaTags,
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
+import parse from 'html-react-parser';
 
 interface Book {
   id: number;
@@ -41,10 +42,10 @@ export async function generateMetadata({
       return {
         metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(book.title.rendered),
-        description: decodeHtmlEntities(formatedContent.slice(0, 160)),
+        description: parse(formatedContent.slice(0, 160)) as string,
         openGraph: {
           title: book.title.rendered,
-          description: decodeHtmlEntities(formatedContent.slice(0, 160)),
+          description: parse(formatedContent.slice(0, 160)) as string,
           url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
@@ -52,7 +53,7 @@ export async function generateMetadata({
         twitter: {
           card: 'summary_large_image',
           title: book.title.rendered,
-          description: decodeHtmlEntities(formatedContent.slice(0, 160)),
+          description: parse(formatedContent.slice(0, 160)) as string,
           images: [imageUrl || ''],
         },
       };
