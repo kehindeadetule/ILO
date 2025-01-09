@@ -5,18 +5,21 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-interface LayoutProps {
-  children: React.ReactNode;
-  params: { slug: string };
+interface Media {
+  id: number;
+  slug: string;
+  title: { rendered: string };
+  content: { rendered: string };
 }
 
-// Dynamic metadata generation
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
   try {
+    // const slug = params.slug;
+
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=205&orderby=date&order=desc`
     );
@@ -28,7 +31,7 @@ export async function generateMetadata({
     const media = await response.json();
 
     // Find the episode by matching the slug
-    const episode = media.find((b: { slug: string; }) => b.slug === params.slug);
+    const episode = media.find((b: Media) => b.slug === params.slug);
 
     if (episode) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -66,6 +69,10 @@ export async function generateMetadata({
   };
 }
 
-export default function EpisodeLayout({ children }: LayoutProps) {
+export default function EpisodeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }
