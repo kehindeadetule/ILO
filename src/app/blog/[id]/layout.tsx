@@ -1,19 +1,24 @@
-import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
+import { Metadata } from 'next';
+import { formatedBookContent } from '@/components/utils/utils';
 import {
   defaultMetaTags,
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-interface Blog {
-  id: number;
-  title: { rendered: string };
-  content: { rendered: string };
+interface LayoutProps {
+  children: React.ReactNode;
+  params: { id: string };
 }
+
 // Dynamic metadata generation
-export async function generateMetadata({ params }: { params: { id: string } }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
   try {
     console.log(
-      'Fetching blog from:',
+      'Fetching books from:',
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
     );
 
@@ -24,24 +29,28 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     console.log('Response status:', response.status);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch blog');
+      throw new Error('Failed to fetch books');
     }
 
-    const blogs = await response.json();
-    const blog = blogs.find((b: Blog) => b.id === Number(params.id));
+    const books = await response.json();
+    console.log('Fetched books:', books);
+    console.log('Params ID:', params.id);
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const book = books.find((b: any) => b.id === Number(params.id));
 
-    if (blog) {
+    if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
-        blog.content.rendered
+        book.content.rendered
       );
 
-      console.log('Found blog:', blog);
+      console.log('Found book:', book);
 
       return {
-        title: toTitleCase(blog.title.rendered),
+        title: book.title.rendered,
         description: formatedContent.slice(0, 160),
         openGraph: {
-          title: blog.title.rendered,
+          title: book.title.rendered,
           description: formatedContent.slice(0, 160),
           url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1&${params.id}`,
           images: [{ url: imageUrl || '' }],
@@ -49,7 +58,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
         },
         twitter: {
           card: 'summary_large_image',
-          title: blog.title.rendered,
+          title: book.title.rendered,
           description: formatedContent.slice(0, 160),
           images: [imageUrl || ''],
         },
@@ -59,17 +68,14 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     console.error('Error generating metadata:', error);
   }
 
-  // Return default metadata if blog not found or in case of error
+  // Return default metadata if book not found or in case of error
   return {
-    title: pageMetaTags.blog.title,
-    description: pageMetaTags.blog.description,
+    title: pageMetaTags.books.title,
+    description: pageMetaTags.books.description,
   };
 }
 
-export default function BlogLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+export default function BookLayout({ children }: LayoutProps) {
   return <>{children}</>;
 }

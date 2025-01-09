@@ -4,16 +4,10 @@ import {
   defaultMetaTags,
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
-import { ReactNode } from 'react';
 
-interface BookLayoutProps {
-  children: ReactNode;
-  params: string;
-}
-interface Book {
-  id: number;
-  title: { rendered: string };
-  content: { rendered: string };
+interface LayoutProps {
+  children: React.ReactNode;
+  params: { id: string };
 }
 
 // Dynamic metadata generation
@@ -42,7 +36,8 @@ export async function generateMetadata({
     console.log('Fetched books:', books);
     console.log('Params ID:', params.id);
 
-    const book = books.find((b: Book) => b.id === Number(params.id));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const book = books.find((b: any) => b.id === Number(params.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
@@ -52,7 +47,7 @@ export async function generateMetadata({
       console.log('Found book:', book);
 
       return {
-        title: toTitleCase(book.title.rendered),
+        title: book.title.rendered,
         description: formatedContent.slice(0, 160),
         openGraph: {
           title: toTitleCase(book.title.rendered),
@@ -80,6 +75,7 @@ export async function generateMetadata({
   };
 }
 
-export default function BookLayout({ children }: BookLayoutProps) {
+
+export default function BookLayout({ children }: LayoutProps) {
   return <>{children}</>;
 }
