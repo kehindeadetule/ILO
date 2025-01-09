@@ -11,9 +11,10 @@ interface Blog {
   content: { rendered: string };
 }
 
-// Define correct types for generateMetadata
+// Define the correct metadata types
 type GenerateMetadataProps = {
   params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // Dynamic metadata generation
@@ -25,24 +26,17 @@ export async function generateMetadata({
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
     );
 
-    console.log('Response status:', response.status);
-
     if (!response.ok) {
       throw new Error('Failed to fetch blogs');
     }
 
     const blogs = await response.json();
-    console.log('Fetched blog:', blogs);
-    console.log('Params ID:', params.id);
-
     const blog = blogs.find((b: Blog) => b.id === Number(params.id));
 
     if (blog) {
       const { imageUrl, formatedContent } = formatedBookContent(
         blog.content.rendered
       );
-
-      console.log('Found blog:', blog);
 
       return {
         title: toTitleCase(blog.title.rendered),
@@ -66,19 +60,17 @@ export async function generateMetadata({
     console.error('Error generating metadata:', error);
   }
 
-  // Return default metadata if blog not found or in case of error
   return {
     title: pageMetaTags.blog.title,
     description: pageMetaTags.blog.description,
   };
 }
 
-// Define correct types for layout props
-type LayoutProps = {
+// Define the layout component without explicit params typing
+export default function BlogLayout({
+  children,
+}: {
   children: React.ReactNode;
-  params: { id: string };
-};
-
-export default function BlogLayout({ children }: LayoutProps) {
+}) {
   return <>{children}</>;
 }

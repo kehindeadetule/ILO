@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from 'next';
 import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
@@ -12,9 +11,10 @@ interface Book {
   content: { rendered: string };
 }
 
-// Define correct types for generateMetadata
+// Define the correct metadata types
 type GenerateMetadataProps = {
   params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // Dynamic metadata generation
@@ -26,24 +26,17 @@ export async function generateMetadata({
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
     );
 
-    console.log('Response status:', response.status);
-
     if (!response.ok) {
       throw new Error('Failed to fetch books');
     }
 
     const books = await response.json();
-    console.log('Fetched books:', books);
-    console.log('Params ID:', params.id);
-
     const book = books.find((b: Book) => b.id === Number(params.id));
 
     if (book) {
       const { imageUrl, formatedContent } = formatedBookContent(
         book.content.rendered
       );
-
-      console.log('Found book:', book);
 
       return {
         title: book.title.rendered,
@@ -67,19 +60,17 @@ export async function generateMetadata({
     console.error('Error generating metadata:', error);
   }
 
-  // Return default metadata if book not found or in case of error
   return {
     title: pageMetaTags.books.title,
     description: pageMetaTags.books.description,
   };
 }
 
-// Define correct types for layout props
-type LayoutProps = {
+// Define the layout component without explicit params typing
+export default function BookLayout({
+  children,
+}: {
   children: React.ReactNode;
-  params: { id: string };
-};
-
-export default function BookLayout({ children }: LayoutProps) {
+}) {
   return <>{children}</>;
 }
