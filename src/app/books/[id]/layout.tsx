@@ -7,7 +7,7 @@ import {
 
 interface BookLayoutProps {
   children: React.ReactNode;
-  params: { id: string };
+  params: { id: string } | Promise<{ id: string }>;
 }
 interface Book {
   id: number;

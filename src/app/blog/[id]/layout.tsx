@@ -7,7 +7,7 @@ import {
 
 interface BlogLayoutProps {
   children: React.ReactNode;
-  params: { id: string };
+  params: { id: string } | Promise<{ id: string }>;
 }
 
 interface Blog {
