@@ -5,12 +5,12 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-interface Media {
-  id: number;
-  slug: string;
-  title: { rendered: string };
-  content: { rendered: string };
-}
+// interface Media {
+//   id: number;
+//   slug: string;
+//   title: { rendered: string };
+//   content: { rendered: string };
+// }
 
 export async function generateMetadata({
   params,
