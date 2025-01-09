@@ -13,14 +13,10 @@ interface Blog {
   content: { rendered: string };
 }
 
-// The 'params' will be automatically passed in the layout function
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string }; // Dynamic parameter passed in the URL
-}): Promise<Metadata> {
+//@ts-ignore
+export async function generateMetadata({params}: any): Promise<Metadata> {
   try {
-    const { id } = params; // Access dynamic `id` from the URL params
+    const { id } = params; 
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
