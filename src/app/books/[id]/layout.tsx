@@ -7,7 +7,7 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // @ts-ignore to disable type error for params
   params: { id: string };
 }
 
@@ -75,7 +75,6 @@ export async function generateMetadata({
     description: pageMetaTags.books.description,
   };
 }
-
 
 export default function BookLayout({ children }: LayoutProps) {
   return <>{children}</>;
