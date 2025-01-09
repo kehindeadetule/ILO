@@ -77,7 +77,7 @@ export async function generateMetadata({
 
 type BlogLayoutProps = {
   children: React.ReactNode;
-  params: { id: string }; // Adjusted params type directly here
+  // params: { id: string }; // Adjusted params type directly here
 };
 
 // Correcting the layout component to accept the correct params type

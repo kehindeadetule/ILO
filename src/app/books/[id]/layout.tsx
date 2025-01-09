@@ -76,7 +76,7 @@ export async function generateMetadata({
 
 type BookLayoutProps = {
   children: React.ReactNode;
-  params: { id: string };
+  // params: { id: string };
 };
 
 export default function BookLayout({ children }: BookLayoutProps) {
