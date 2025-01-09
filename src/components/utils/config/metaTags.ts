@@ -11,55 +11,54 @@ export const pageMetaTags = {
     title: 'Home | Ibidun Layi Ojo',
     description:
       "Welcome to Ibidun Layi Ojo's official website. Explore my writings, media appearances, books, and more.",
-    image: '/images/home-hero.jpg',
+    image: '/assets/banner-img.png',
     type: 'website',
   },
   about: {
     title: 'About | Ibidun Layi Ojo',
     description:
       'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
-    image: '/images/about-hero.jpg',
+    image: '/assets/about-banner.png',
     type: 'website',
   },
   blog: {
     title: 'Blog | Ibidun Layi Ojo',
     description:
       'Read my latest blog posts, articles, and thoughts on various topics.',
-    image: '/images/blog-hero.jpg',
+    image: '/assets/show-banner.png',
     type: 'website',
   },
   media: {
     title: 'Media | Ibidun Layi Ojo',
     description:
       'Check out my media appearances, interviews, and public speaking engagements.',
-    image: '/images/media-hero.jpg',
+    image: '/assets/media-hero.png',
     type: 'website',
   },
   books: {
     title: 'Books | Ibidun Layi Ojo',
     description: 'Explore my published books and literary works.',
-    image: '/images/books-hero.jpg',
+    image: '/assets/books-hero.png',
     type: 'website',
   },
   contact: {
     title: 'Contact | Ibidun Layi Ojo',
     description:
       'Get in touch with me for inquiries, collaborations, or speaking engagements.',
-    image: '/images/contact-hero.jpg',
+    image: '/assets/contact-bg.png',
     type: 'website',
   },
   booking: {
     title: 'Booking | Ibidun Layi Ojo',
     description:
       'Get in touch with me for inquiries, collaborations, or speaking engagements.',
-    image: '/images/contact-hero.jpg',
+    image: '/assets/contact-hero.png',
     type: 'website',
   },
   login: {
     title: 'Login | Ibidun Layi Ojo',
-    description:
-      'Authentication for comments.',
-    image: '/images/contact-hero.jpg',
+    description: 'Authentication for comments.',
+    image: '/assets/contact-hero.png',
     type: 'website',
   },
 };

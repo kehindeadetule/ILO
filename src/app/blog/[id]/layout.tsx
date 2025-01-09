@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
+import { decodeHtmlEntities, formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
   defaultMetaTags,
   pageMetaTags,
@@ -39,10 +39,10 @@ export async function generateMetadata({
       return {
         metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(blog.title.rendered),
-        description: formatedContent.slice(0, 160),
+        description: decodeHtmlEntities(formatedContent.slice(0, 160)),
         openGraph: {
           title: blog.title.rendered,
-          description: formatedContent.slice(0, 160),
+          description: decodeHtmlEntities(formatedContent.slice(0, 160)),
           url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1&${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
@@ -50,7 +50,7 @@ export async function generateMetadata({
         twitter: {
           card: 'summary_large_image',
           title: blog.title.rendered,
-          description: formatedContent.slice(0, 160),
+          description: decodeHtmlEntities(formatedContent.slice(0, 160)),
           images: [imageUrl || ''],
         },
       };
