@@ -13,7 +13,6 @@ interface Blog {
   content: { rendered: string };
 }
 
-//@ts-ignore
 export async function generateMetadata({params}: any): Promise<Metadata> {
   try {
     const { id } = params; 
