@@ -1,10 +1,17 @@
 import Helmet from '@/components/utils/config/Helmet';
 
+export const metadata = {
+  title: 'About | Ibidun Layi Ojo',
+  description:
+    'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
+  image: '/assets/about-banner.png',
+  type: 'website',
+};
+
 const AboutUs = () => {
   return (
     <>
-      <Helmet pageKey='about' />
-
+      {/* <Helmet pageKey='about' /> */}
       <section>
         <div className='grid md:grid-cols-2'>
           <div className='block md:hidden mt-28'>
