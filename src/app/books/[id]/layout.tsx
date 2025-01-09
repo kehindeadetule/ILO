@@ -7,7 +7,7 @@ import {
 
 interface LayoutProps {
   children: React.ReactNode;
-  params: { id: string | number };
+  params: { id: string };
 }
 
 // Dynamic metadata generation
