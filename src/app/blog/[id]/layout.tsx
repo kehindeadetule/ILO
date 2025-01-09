@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { decodeHtmlEntities, formatedBookContent, toTitleCase } from '@/components/utils/utils';
+import { formatedBookContent, toTitleCase } from '@/components/utils/utils';
 import {
   defaultMetaTags,
   pageMetaTags,
