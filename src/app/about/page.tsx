@@ -8,8 +8,8 @@ export const metadata: Metadata = {
     title: 'About | Ibidun Layi Ojo',
     description:
       'Learn more about Ibidun Layi Ojo, my journey, experiences, and what drives me.',
-    url: 'https://yourdomain.com/about',
-    images: [{ url: 'https://yourdomain.com/assets/about-banner.png' }],
+    url: 'https://ilo-m8j1.vercel.app/about',
+    images: [{ url: 'https://ilo-m8j1.vercel.app/assets/about-banner.png' }],
   },
   twitter: {
     card: 'summary_large_image',
