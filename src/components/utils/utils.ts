@@ -5,6 +5,10 @@ export const stripHtml = (html: string): string => {
   tmp.innerHTML = html;
   return tmp.textContent || tmp.innerText || '';
 };
+export function stripHtmlTags(html: string): string {
+  return html.replace(/<\/?[^>]+(>|$)/g, '').trim();
+}
+
 
 // Function to extract the first image from content and remove it
 export const extractAndRemoveImage = (
