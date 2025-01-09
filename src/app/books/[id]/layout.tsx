@@ -8,7 +8,7 @@ import { ReactNode } from 'react';
 
 interface BookLayoutProps {
   children: ReactNode;
-  params: any;
+  params: string;
 }
 interface Book {
   id: number;
