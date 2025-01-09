@@ -13,17 +13,13 @@ interface Blog {
   content: { rendered: string };
 }
 
-// Adjust the type of props to match what Next.js expects for layouts
-type GenerateMetadataProps = {
-  params: { id: string }; // Dynamic parameter in URL
-  searchParams: { [key: string]: string | string[] | undefined };
-};
-
 export async function generateMetadata({
   params,
-}: GenerateMetadataProps): Promise<Metadata> {
+}: {
+  params: { id: string }; // Dynamic parameter passed in the URL
+}): Promise<Metadata> {
   try {
-    const { id } = params; // Dynamic `id` from params
+    const { id } = params; // Access dynamic `id` from the URL params
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
@@ -71,7 +67,7 @@ export async function generateMetadata({
   };
 }
 
-// Layout component
+// Layout component for blog
 export default function BlogLayout({
   children,
 }: {
