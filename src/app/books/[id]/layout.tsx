@@ -17,11 +17,6 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   try {
-    console.log(
-      'Fetching books from:',
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
-    );
-
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
     );
@@ -74,11 +69,10 @@ export async function generateMetadata({
   };
 }
 
-type BookLayoutProps = {
+export default function BookLayout({
+  children,
+}: {
   children: React.ReactNode;
-  // params: { id: string };
-};
-
-export default function BookLayout({ children }: BookLayoutProps) {
+}) {
   return <>{children}</>;
 }

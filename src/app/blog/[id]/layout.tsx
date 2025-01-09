@@ -18,11 +18,6 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   try {
-    console.log(
-      'Fetching blog from:',
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
-    );
-
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`
     );
@@ -75,12 +70,11 @@ export async function generateMetadata({
   };
 }
 
-type BlogLayoutProps = {
+// Fixing the LayoutProps typing for layout
+export default function BlogLayout({
+  children,
+}: {
   children: React.ReactNode;
-  // params: { id: string }; // Adjusted params type directly here
-};
-
-// Correcting the layout component to accept the correct params type
-export default function BlogLayout({ children }: BlogLayoutProps) {
+}) {
   return <>{children}</>;
 }
