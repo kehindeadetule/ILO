@@ -13,15 +13,10 @@ interface Book {
   content: { rendered: string };
 }
 
-type GenerateMetadataProps = {
-  params: { id: string }; // Dynamic route parameter
-};
-
-export async function generateMetadata({
-  params,
-}: GenerateMetadataProps): Promise<Metadata> {
+//@ts-ignore
+export async function generateMetadata({ params }: any): Promise<Metadata> {
   try {
-    const { id } = params; // Access the dynamic `id` from params
+    const { id } = params;
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`,
