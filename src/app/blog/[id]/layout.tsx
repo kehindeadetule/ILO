@@ -8,7 +8,7 @@ import { ReactNode } from 'react';
 
 interface BlogLayoutProps {
   children: ReactNode;
-  params: { id: string };
+  params: any;
 }
 
 interface Blog {
