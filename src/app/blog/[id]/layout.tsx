@@ -4,10 +4,11 @@ import {
   defaultMetaTags,
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
+import { ReactNode } from 'react';
 
 interface BlogLayoutProps {
-  children: React.ReactNode;
-  params: { id: string } | Promise<{ id: string }>;
+  children: ReactNode;
+  params: { id: string };
 }
 
 interface Blog {
