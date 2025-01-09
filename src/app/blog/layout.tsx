@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BooksLayout({
+export default function BlogLayout({
   children,
 }: {
   children: React.ReactNode;

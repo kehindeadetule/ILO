@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: pageMetaTags.home.title,
     description: pageMetaTags.home.description,
-    url: 'https://yourdomain.com',
+    url: 'https://blog.ibidunlayiojo.com/wp-json/wp/v2',
     images: [{ url: pageMetaTags.home.image }],
     siteName: defaultMetaTags.siteName,
   },

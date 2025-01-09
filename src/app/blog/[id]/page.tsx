@@ -15,8 +15,6 @@ import {
 } from '@/components/utils/utils';
 import Link from 'next/link';
 import Comments from '@/components/blog/Comment';
-import Helmet from '@/components/utils/config/Helmet';
-
 interface Blog {
   id: number | string;
   title: { rendered: string };
@@ -78,32 +76,6 @@ const BlogPost: React.FC = () => {
 
   return (
     <>
-      {/* {blog && (
-        <Helmet
-          pageKey='blog'
-          customTitle={decodeHtmlEntities(blog.title.rendered)}
-          customDescription={stripHtml(
-            decodeHtmlEntities(blog.excerpt.rendered)
-          )}
-          customImage={imageUrl || '/images/default-og-image.jpg'}
-          customType='article'
-          canonicalUrl={`${window.location.origin}/blog/${blog.id}`}
-        />
-      )} */}
-
-      {blog && (
-        <Helmet
-          pageKey='blog'
-          customTitle={decodeHtmlEntities(blog.title.rendered)}
-          customDescription={stripHtml(
-            decodeHtmlEntities(blog.excerpt.rendered)
-          )}
-          customImage={imageUrl || '/images/default-og-image.jpg'}
-          customType='article'
-          // canonicalUrl={`${window.location.origin}/blog/${blog.id}`}
-        />
-      )}
-
       {loading ? (
         <div className='flex justify-center items-center min-h-[50vh]'>
           <CircleLoader />

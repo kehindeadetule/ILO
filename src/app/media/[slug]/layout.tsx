@@ -28,7 +28,7 @@ export async function generateMetadata({
     const media = await response.json();
 
     // Find the episode by matching the slug
-    const episode = media.find((b: any) => b.slug === params.slug);
+    const episode = media.find((b: { slug: string; }) => b.slug === params.slug);
 
     if (episode) {
       const { imageUrl, formatedContent } = formatedBookContent(

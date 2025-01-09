@@ -11,27 +11,6 @@ import {
   toTitleCase,
   stripHtml,
 } from '@/components/utils/utils';
-import {
-  pageMetaTags,
-  defaultMetaTags,
-} from '@/components/utils/config/metaTags';
-import type { Metadata } from 'next';
-
- const metadata: Metadata = {
-  title: pageMetaTags.blog.title,
-  description: pageMetaTags.blog.description,
-  openGraph: {
-    title: pageMetaTags.blog.title,
-    description: pageMetaTags.blog.description,
-    url: 'https://yourdomain.com',
-    images: [{ url: pageMetaTags.blog.image }],
-    siteName: defaultMetaTags.siteName,
-  },
-  twitter: {
-    card: 'summary_large_image',
-  },
-};
-
 
 const Blog = () => {
   const [currentPage, setCurrentPage] = useState(1);

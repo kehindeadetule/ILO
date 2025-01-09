@@ -130,7 +130,7 @@ const MediaEpisodes: React.FC = () => {
         const img = new Image();
         img.crossOrigin = 'Anonymous';
 
-        const imageLoadPromise = new Promise((resolve, reject) => {
+        const imageLoadPromise = new Promise((resolve) => {
           img.onload = () => resolve(img);
         });
 
