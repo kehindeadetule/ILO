@@ -1,5 +1,9 @@
 import { Metadata } from 'next';
-import { formatedBookContent, stripHtmlTagsAndDecode, toTitleCase } from '@/components/utils/utils';
+import {
+  formatedBookContent,
+  stripHtmlTagsAndDecode,
+  toTitleCase,
+} from '@/components/utils/utils';
 import {
   defaultMetaTags,
   pageMetaTags,
@@ -38,19 +42,25 @@ export async function generateMetadata({
 
       return {
         metadataBase: new URL('https://blog.ibidunlayiojo.com'),
-        title: toTitleCase(book.title.rendered),
-        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)) as string,
+        title: toTitleCase(stripHtmlTagsAndDecode(book.title.rendered)),
+        description: stripHtmlTagsAndDecode(
+          formatedContent.slice(0, 160)
+        ) as string,
         openGraph: {
-          title: book.title.rendered,
-          description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)) as string,
+          title: toTitleCase(stripHtmlTagsAndDecode(book.title.rendered)),
+          description: stripHtmlTagsAndDecode(
+            formatedContent.slice(0, 160)
+          ) as string,
           url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31&${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
         twitter: {
           card: 'summary_large_image',
-          title: book.title.rendered,
-          description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)) as string,
+          title: toTitleCase(stripHtmlTagsAndDecode(book.title.rendered)),
+          description: stripHtmlTagsAndDecode(
+            formatedContent.slice(0, 160)
+          ) as string,
           images: [imageUrl || ''],
         },
       };

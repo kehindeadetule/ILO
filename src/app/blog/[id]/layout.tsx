@@ -47,7 +47,7 @@ export async function generateMetadata({
           formatedContent.slice(0, 160)
         ) as string,
         openGraph: {
-          title: blog.title.rendered,
+          title:toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
@@ -57,7 +57,7 @@ export async function generateMetadata({
         },
         twitter: {
           card: 'summary_large_image',
-          title: blog.title.rendered,
+          title:toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,

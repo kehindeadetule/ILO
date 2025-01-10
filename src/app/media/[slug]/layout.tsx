@@ -35,7 +35,7 @@ export async function generateMetadata({
         title: toTitleCase(episode.title.rendered),
         description: formatedContent.slice(0, 160),
         openGraph: {
-          title: episode.title.rendered,
+          title: toTitleCase(episode.title.rendered),
           description: formatedContent.slice(0, 160),
           url: `https://blog.ibidunlayiojo.com/media/${(await params).slug}`,
           images: [{ url: imageUrl || '' }],
@@ -43,7 +43,7 @@ export async function generateMetadata({
         },
         twitter: {
           card: 'summary_large_image',
-          title: episode.title.rendered,
+          title: toTitleCase(episode.title.rendered),
           description: formatedContent.slice(0, 160),
           images: [imageUrl || ''],
         },
