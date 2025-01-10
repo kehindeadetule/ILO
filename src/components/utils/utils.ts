@@ -1,3 +1,4 @@
+import he from 'he';
 
 // Function to strip HTML tags
 export const stripHtml = (html: string): string => {
@@ -5,10 +6,11 @@ export const stripHtml = (html: string): string => {
   tmp.innerHTML = html;
   return tmp.textContent || tmp.innerText || '';
 };
-export function stripHtmlTags(html: string): string {
-  return html.replace(/<\/?[^>]+(>|$)/g, '').trim();
-}
 
+export function stripHtmlTagsAndDecode(html: string): string {
+  const stripped = html.replace(/<\/?[^>]+(>|$)/g, '').trim(); // Remove HTML tags
+  return he.decode(stripped); // Decode HTML entities
+}
 
 // Function to extract the first image from content and remove it
 export const extractAndRemoveImage = (
@@ -155,8 +157,7 @@ export const truncateString = (str: string, maxLength: number) => {
   return str;
 };
 
-
-//getDominantColor from image 
+//getDominantColor from image
 export async function getDominantColor(imageUrl: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -192,11 +193,16 @@ export async function getDominantColor(imageUrl: string): Promise<string> {
 }
 
 // Helper function to calculate average color
-function calculateAverageColor(data: Uint8ClampedArray): [number, number, number] {
-  let r = 0, g = 0, b = 0, count = 0;
+function calculateAverageColor(
+  data: Uint8ClampedArray
+): [number, number, number] {
+  let r = 0,
+    g = 0,
+    b = 0,
+    count = 0;
 
   for (let i = 0; i < data.length; i += 4) {
-    r += data[i];     // Red channel
+    r += data[i]; // Red channel
     g += data[i + 1]; // Green channel
     b += data[i + 2]; // Blue channel
     count++;
