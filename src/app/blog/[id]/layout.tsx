@@ -47,17 +47,17 @@ export async function generateMetadata({
           formatedContent.slice(0, 160)
         ) as string,
         openGraph: {
-          title:toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
-          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1&${id}`,
-          images: [{ url: imageUrl || '' }],
+          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1&id=${id}`,
+          images: { url: imageUrl || '' },
           siteName: defaultMetaTags.siteName,
         },
         twitter: {
           card: 'summary_large_image',
-          title:toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
