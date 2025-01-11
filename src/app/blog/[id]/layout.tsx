@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import {
+  extractAndRemoveImage,
   formatedBookContent,
   stripHtmlTagsAndDecode,
   toTitleCase,
@@ -33,13 +34,16 @@ export async function generateMetadata({
     }
 
     const blogs = await response.json();
+    console.log(blogs);
     const blog = blogs.find((b: Blog) => b.id === Number(id));
+    console.log(blog);
 
     if (blog) {
-      const { imageUrl, formatedContent } = formatedBookContent(
+      const { imageUrl, formatedContent } = extractAndRemoveImage(
         blog.content.rendered
       );
-
+      console.log(imageUrl);
+      console.log(formatedContent)
       return {
         metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),

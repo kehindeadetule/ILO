@@ -43,6 +43,8 @@ const BookPost: React.FC = () => {
     ? formatedBookContent(book.content.rendered)
     : { imageUrl: null, formatedContent: '', amazonUrl: '' };
 
+    console.log(formatedContent)
+
   return (
     <section className='relative'>
       <div>

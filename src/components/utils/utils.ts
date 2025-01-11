@@ -41,8 +41,9 @@ export const formatedBookContent = (
   const imgRegex =
     /<figure class="wp-block-image size-full">[\s\S]*?<\/figure>/;
   const amazonLinkRegex =
-    /<p><a href="(https:\/\/www\.amazon\.com\/[^"]+)">[^<]+<\/a><\/p>/;
+    /<a\s+[^>]*href="(https?:\/\/www\.amazon\.com\/[^"]+)"[^>]*>.*?<\/a>/i;
   const srcRegex = /src="([^"]+)"/;
+  const clickHereTextRegex = /<p>Click here.*?<\/p>/i;
 
   let imageUrl: string | null = null;
   let amazonUrl: string | null = null;
@@ -58,24 +59,20 @@ export const formatedBookContent = (
     formatedContent = content?.replace(imageMatch[0], '');
   }
 
-  // Extract and remove the Amazon link
+  // Extract and remove the Amazon link with its entire anchor tag
   const amazonMatch = formatedContent?.match(amazonLinkRegex);
   if (amazonMatch) {
-    amazonUrl = amazonMatch[1];
-    formatedContent = formatedContent?.replace(amazonMatch[0], '');
+    amazonUrl = amazonMatch[1]; // Get the URL from the href attribute
+    formatedContent = formatedContent?.replace(amazonMatch[0], ''); // Remove the entire anchor tag
   }
 
-  // Clean up any remaining "Click here to get your e-copy" text since it's now empty
-  formatedContent = formatedContent?.replace(
-    /<p>Click here to get your e-copy or paper copy of<\/p>/,
-    ''
-  );
+  // Remove "Click here..." or similar text
+  formatedContent = formatedContent?.replace(clickHereTextRegex, '');
 
-  // Clean up any double line breaks that might have been created
-  formatedContent = formatedContent?.replace(/\n\s*\n\s*\n/g, '\n\n');
-
-  // Trim any trailing whitespace
-  formatedContent = formatedContent?.trim();
+  // Clean up any double line breaks or extra whitespace
+  formatedContent = formatedContent
+    ?.replace(/\n\s*\n\s*\n/g, '\n\n') // Remove multiple line breaks
+    .trim(); // Trim trailing whitespace
 
   return {
     imageUrl,
@@ -83,6 +80,8 @@ export const formatedBookContent = (
     amazonUrl,
   };
 };
+
+
 
 // function to use html entites
 export const decodeHtmlEntities = (text: string) => {
