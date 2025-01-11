@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import {
   extractAndRemoveImage,
-  formatedBookContent,
   stripHtmlTagsAndDecode,
   toTitleCase,
 } from '@/components/utils/utils';
