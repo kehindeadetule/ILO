@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import {
-  extractAndRemoveImage,
+  // extractAndRemoveImage,
+  formatedBookContent,
   stripHtmlTagsAndDecode,
   toTitleCase,
 } from '@/components/utils/utils';
@@ -37,11 +38,28 @@ export async function generateMetadata({
     console.log(blog);
 
     if (blog) {
-      const { imageUrl, formatedContent } = extractAndRemoveImage(
+      const { imageUrl, formatedContent } = formatedBookContent(
         blog.content.rendered
       );
       console.log(imageUrl);
       console.log(formatedContent)
+
+      console.log('Blog metadata:', {
+        title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+        openGraph: {
+          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+          description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
+          images: [{ url: imageUrl || '' }],
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+          description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+          images: [imageUrl || ''],
+        },
+      });
       return {
         // metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
@@ -53,7 +71,7 @@ export async function generateMetadata({
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
-          url: `https://blog.ibidunlayiojo.com/blog//${(await params).id}`,
+          url: `https://blog.ibidunlayiojo.com/blog/${(await params).id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
