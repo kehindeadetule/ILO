@@ -9,11 +9,11 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-// interface Blog {
-//   id: number;
-//   title: { rendered: string };
-//   content: { rendered: string };
-// }
+interface Blog {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+}
 
 export async function generateMetadata({
   params,
@@ -22,43 +22,53 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const id = (await params).id;
+    console.log('ID:', id);
 
-    const response = await fetch(
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts/${id}`,
-      { next: { revalidate: 3600 } }
-    );
+    const url = `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts/${id}`;
+    const response = await fetch(url, { next: { revalidate: 3600 } });
+    console.log('Response:', response);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch blog post');
+      throw new Error('Failed to fetch blog');
     }
 
     const blog = await response.json();
-    // console.log(blog )
+    console.log('Blog data:', blog); // Log the actual blog data
 
-    const { imageUrl, formatedContent } = extractAndRemoveImage(
-      blog.content.rendered
-    );
+    // Ensure blog is an object and contains expected fields
+    if (blog && blog.id === Number(id)) {
+      const { imageUrl, formatedContent } = extractAndRemoveImage(
+        blog.content.rendered
+      );
+      console.log('Image URL:', imageUrl);
+      console.log('Formatted Content:', formatedContent);
 
-    // console.log(imageUrl, formatedContent, )
+      const description = formatedContent
+        ? stripHtmlTagsAndDecode(formatedContent.slice(0, 160))
+        : pageMetaTags.blog.description;
+      const image = imageUrl || pageMetaTags.blog.image;
 
-    return {
-      metadataBase: new URL('https://blog.ibidunlayiojo.com/blog'),
-      title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-      description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
-      openGraph: {
+      return {
+        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
-        url: `https://blog.ibidunlayiojo.com/blog/${id}`,
-        images: [{ url: imageUrl || '/default-image.jpg' }],
-        siteName: defaultMetaTags.siteName,
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
-        images: [imageUrl || '/default-image.jpg'],
-      },
-    };
+        description: description,
+        openGraph: {
+          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+          description: description,
+          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
+          images: image,
+          siteName: defaultMetaTags.siteName,
+        },
+        twitter: {
+          card: 'summary_large_image',
+          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+          description: description,
+          images: [imageUrl || ''],
+        },
+      };
+    } else {
+      console.error('Blog not found or invalid structure');
+    }
   } catch (error) {
     console.error('Error generating metadata:', error);
   }
@@ -69,8 +79,10 @@ export async function generateMetadata({
   };
 }
 
+
+
 // Layout component for blog
-export default function BlogPostLayout({
+export default function BlogLayout({
   children,
 }: {
   children: React.ReactNode;
