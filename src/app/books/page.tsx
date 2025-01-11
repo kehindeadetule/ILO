@@ -63,7 +63,6 @@ const Books = () => {
                   const { imageUrl } = formatedBookContent(
                     book.content.rendered
                   );
-                  console.log(imageUrl, 'extedd');
                   return (
                     <div
                       key={book.id}

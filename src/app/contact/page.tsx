@@ -119,7 +119,6 @@ const ContactPage = () => {
     e.preventDefault();
     const isValid = validateForm();
     if (!isValid) {
-      console.log('button clicked');
       setIsSubmitting(false); // Stop submitting if there are validation errors
       return;
     }

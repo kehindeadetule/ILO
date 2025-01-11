@@ -57,7 +57,6 @@ export default function Navbar() {
         'https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=205&orderby=date&order=desc'
       );
       const mediaData = await response.json();
-      console.log(mediaData);
       const processedItems = await Promise.all(
         mediaData.map(
           async (item: {

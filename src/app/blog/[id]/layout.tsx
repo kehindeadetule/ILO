@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import {
-  // extractAndRemoveImage,
-  formatedBookContent,
+  extractAndRemoveImage,
   stripHtmlTagsAndDecode,
   toTitleCase,
 } from '@/components/utils/utils';
@@ -23,6 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const id = (await params).id;
+
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
       { next: { revalidate: 3600 } }
@@ -33,54 +33,63 @@ export async function generateMetadata({
     }
 
     const blogs = await response.json();
-    console.log(blogs);
+
     const blog = blogs.find((b: Blog) => b.id === Number(id));
-    console.log(blog);
 
     if (blog) {
-      const { imageUrl, formatedContent } = formatedBookContent(
+      const { imageUrl } = extractAndRemoveImage(
         blog.content.rendered
       );
-      console.log(imageUrl);
-      console.log(formatedContent)
-
       console.log('Blog metadata:', {
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+        description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
+          0,
+          160
+        ),
         openGraph: {
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
+            0,
+            160
+          ),
           url: `https://blog.ibidunlayiojo.com/blog/${id}`,
           images: [{ url: imageUrl || '' }],
         },
         twitter: {
           card: 'summary_large_image',
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
+            0,
+            160
+          ),
           images: [imageUrl || ''],
         },
       });
+
       return {
-        // metadataBase: new URL('https://blog.ibidunlayiojo.com'),
+        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-        description: stripHtmlTagsAndDecode(
-          formatedContent.slice(0, 160)
-        ) as string,
+        description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
+          0,
+          160
+        ),
         openGraph: {
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(
-            formatedContent.slice(0, 160)
-          ) as string,
-          url: `https://blog.ibidunlayiojo.com/blog/${(await params).id}`,
+          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
+            0,
+            160
+          ),
+          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
         twitter: {
           card: 'summary_large_image',
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(
-            formatedContent.slice(0, 160)
-          ) as string,
+          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
+            0,
+            160
+          ),
           images: [imageUrl || ''],
         },
       };

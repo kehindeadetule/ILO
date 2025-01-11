@@ -1,7 +1,7 @@
 export const defaultMetaTags = {
   siteName: 'Ibidun Layi Ojo',
   defaultAuthor: 'Ibidun Layi Ojo',
-  defaultImage: '/images/default-og-image.jpg',
+  defaultImage: '/assets/contact-bg.png',
   defaultKeywords: 'blog, technology, web development',
   defaultDescription: "Welcome to Ibidun Layi Ojo's official website",
 };
