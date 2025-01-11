@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: pageMetaTags.contact.title,
     description: pageMetaTags.contact.description,
-    url: 'https://blog.ibidunlayiojo.com/wp-json/wp/v2/contact',
+    url: 'https://blog.ibidunlayiojo.com/contact',
     images: [{ url: pageMetaTags.contact.image }],
     siteName: defaultMetaTags.siteName,
   },

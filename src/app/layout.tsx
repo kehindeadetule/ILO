@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Ibidun Layi Ojo',
     description: "Welcome to Ibidun Layi Ojo's official website.",
-    url: 'https://blog.ibidunlayiojo.com/wp-json/wp/v2',
+    url: 'https://blog.ibidunlayiojo.com',
     images: [
-      { url: 'https://blog.ibidunlayiojo.com/wp-json/wp/v2/about-banner.png' },
+      { url: 'https://blog.ibidunlayiojo.com/about-banner.png' },
     ],
     siteName: 'Ibidun Layi Ojo',
   },

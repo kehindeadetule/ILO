@@ -22,7 +22,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   try {
     const id = (await params).id;
-
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
       { next: { revalidate: 3600 } }
@@ -44,7 +43,7 @@ export async function generateMetadata({
       console.log(imageUrl);
       console.log(formatedContent)
       return {
-        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
+        // metadataBase: new URL('https://blog.ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
         description: stripHtmlTagsAndDecode(
           formatedContent.slice(0, 160)
@@ -54,7 +53,7 @@ export async function generateMetadata({
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
-          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
+          url: `https://blog.ibidunlayiojo.com/blog//${(await params).id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
