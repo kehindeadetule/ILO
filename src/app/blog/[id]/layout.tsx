@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import {
-  // extractAndRemoveImage,
+  extractAndRemoveImage,
   stripHtmlTagsAndDecode,
   toTitleCase,
 } from '@/components/utils/utils';
@@ -9,11 +9,11 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-// interface Blog {
-//   id: number;
-//   title: { rendered: string };
-//   content: { rendered: string };
-// }
+interface Blog {
+  id: number;
+  title: { rendered: string };
+  content: { rendered: string };
+}
 
 export async function generateMetadata({
   params,
@@ -24,54 +24,41 @@ export async function generateMetadata({
     const id = (await params).id;
 
     const response = await fetch(
-      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1`,
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts/${id}`,
       { next: { revalidate: 3600 } }
     );
 
     if (!response.ok) {
-      throw new Error('Failed to fetch blogs');
+      throw new Error('Failed to fetch blog post');
     }
 
-    // const blogs = await response.json();
+    const blog = await response.json();
+    // console.log(blog )
 
-    // const blog = blogs.find((b: Blog) => b.id === Number(id));
+    const { imageUrl, formatedContent } = extractAndRemoveImage(
+      blog.content.rendered
+    );
 
-    // if (blog) {
-    //   const { imageUrl, formatedContent } = extractAndRemoveImage(
-    //     blog.content.rendered
-    //   );
-    // console.log('blog details', imageUrl, formatedContent, blog.title.rendered)
-    const blog = {
-      title: 'hello blog',
-    };
-    const formatedContent = 'desc hello blog';
-    const imageUrl = '/assets/contact-bg.png';
+    // console.log(imageUrl, formatedContent, )
 
     return {
       metadataBase: new URL('https://blog.ibidunlayiojo.com/blog'),
-      title: toTitleCase(stripHtmlTagsAndDecode(blog.title)),
-      description: stripHtmlTagsAndDecode(
-        formatedContent.slice(0, 160)
-      ) as string,
+      title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+      description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
       openGraph: {
-        title: toTitleCase(stripHtmlTagsAndDecode(blog.title)),
-        description: stripHtmlTagsAndDecode(
-          formatedContent.slice(0, 160)
-        ) as string,
+        title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
         url: `https://blog.ibidunlayiojo.com/blog/${id}`,
-        images: [{ url: imageUrl || '' }],
+        images: [{ url: imageUrl || '/default-image.jpg' }],
         siteName: defaultMetaTags.siteName,
       },
       twitter: {
         card: 'summary_large_image',
-        title: toTitleCase(stripHtmlTagsAndDecode(blog.title)),
-        description: stripHtmlTagsAndDecode(
-          formatedContent.slice(0, 160)
-        ) as string,
-        images: [imageUrl || ''],
+        title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
+        description: stripHtmlTagsAndDecode(formatedContent.slice(0, 160)),
+        images: [imageUrl || '/default-image.jpg'],
       },
     };
-    //}
   } catch (error) {
     console.error('Error generating metadata:', error);
   }
@@ -82,7 +69,7 @@ export async function generateMetadata({
   };
 }
 
-// Layout component for blog post
+// Layout component for blog
 export default function BlogPostLayout({
   children,
 }: {
