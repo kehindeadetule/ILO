@@ -24,19 +24,9 @@ const initialFormData: BookingFormData = {
   country: '',
   phoneNumber: '',
   churchName: '',
-  churchWebsite: '',
-  typeOfEvent: '',
   dateOfEvent: '',
   eventLocation: '',
-  eventCountry: '',
-  addressLine1: '',
-  addressLine2: '',
-  city: '',
-  state: '',
-  zipCode: '',
-  closestAirport: '',
-  additionalInformation: '',
-  hearAboutUs: '',
+  eventDescription: '',
 };
 
 const BookingForm: React.FC = () => {
@@ -57,24 +47,9 @@ const BookingForm: React.FC = () => {
     country: yup.string().required('Country is required'),
     phoneNumber: yup.string().required('Phone number is required'),
     churchName: yup.string().required('Church/Organization name is required'),
-    churchWebsite: yup
-      .string()
-      .url('Invalid website URL')
-      .required('Website is required'),
-    typeOfEvent: yup.string().required('Type of event is required'),
     dateOfEvent: yup.string().required('Date of event is required'),
     eventLocation: yup.string().required('Event location is required'),
-    eventCountry: yup.string().required('Event country is required'),
-    addressLine1: yup.string().required('Address is required'),
-    addressLine2: yup.string().optional(),
-    city: yup.string().required('City is required'),
-    state: yup.string().required('State is required'),
-    zipCode: yup.string().required('Zip code is required'),
-    closestAirport: yup.string().required('Closest airport is required'),
-    additionalInformation: yup.string().optional(),
-    hearAboutUs: yup
-      .string()
-      .required('Please let us know how you heard about us'),
+    eventDescription: yup.string().required('Event Description is required'),
   });
 
   useEffect(() => {
@@ -171,10 +146,7 @@ const BookingForm: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-  const renderCountrySelect = (
-    name: 'country' | 'eventCountry',
-    label: string
-  ) => (
+  const renderCountrySelect = (name: 'country', label: string) => (
     <div>
       <label htmlFor={name} className='block font-medium'>
         {label}
@@ -226,6 +198,7 @@ const BookingForm: React.FC = () => {
               <form onSubmit={handleSubmit} className='space-y-6'>
                 <div className='space-y-5'>
                   {/* Name Fields */}
+
                   <div className='grid md:grid-cols-2 gap-4'>
                     <FormField
                       label='First Name'
@@ -242,7 +215,6 @@ const BookingForm: React.FC = () => {
                       error={errors.lastName}
                     />
                   </div>
-
                   <FormField
                     label='Email Address'
                     name='emailAddress'
@@ -251,7 +223,6 @@ const BookingForm: React.FC = () => {
                     onChange={handleChange}
                     error={errors.emailAddress}
                   />
-
                   <div className='grid md:grid-cols-2 gap-4'>
                     {renderCountrySelect('country', 'Country')}
                     <FormField
@@ -262,7 +233,6 @@ const BookingForm: React.FC = () => {
                       error={errors.phoneNumber}
                     />
                   </div>
-
                   <FormField
                     label='Name of Church or Organization'
                     name='churchName'
@@ -270,32 +240,6 @@ const BookingForm: React.FC = () => {
                     onChange={handleChange}
                     error={errors.churchName}
                   />
-
-                  <FormField
-                    label='Church/Organization Website'
-                    name='churchWebsite'
-                    value={formData.churchWebsite}
-                    onChange={handleChange}
-                    error={errors.churchWebsite}
-                  />
-
-                  <div>
-                    <label htmlFor='typeOfEvent'>Type of Event</label>
-                    <textarea
-                      name='typeOfEvent'
-                      className={`w-full p-2 border-2 rounded border-[#495551] outline-none mt-1 h-24 bg-inherit ${
-                        errors.typeOfEvent ? 'border-red-500' : ''
-                      }`}
-                      value={formData.typeOfEvent}
-                      onChange={handleChange}
-                    />
-                    {errors.typeOfEvent && (
-                      <p className='text-red-500 text-sm mt-1'>
-                        {errors.typeOfEvent}
-                      </p>
-                    )}
-                  </div>
-
                   <FormField
                     label='Date of Event'
                     name='dateOfEvent'
@@ -304,93 +248,26 @@ const BookingForm: React.FC = () => {
                     onChange={handleChange}
                     error={errors.dateOfEvent}
                   />
-
                   <FormField
-                    label='Event Location (i.e. venue or building name)'
+                    label='Event Location (i.e. address, venue or building name)'
                     name='eventLocation'
                     value={formData.eventLocation}
                     onChange={handleChange}
                     error={errors.eventLocation}
                   />
-
-                  {renderCountrySelect('eventCountry', 'Event Country')}
-
-                  <FormField
-                    label='Address Line 1'
-                    name='addressLine1'
-                    value={formData.addressLine1}
-                    onChange={handleChange}
-                    error={errors.addressLine1}
-                  />
-
-                  <FormField
-                    label='Address Line 2 (optional)'
-                    name='addressLine2'
-                    value={formData.addressLine2 || ''}
-                    onChange={handleChange}
-                    error={errors.addressLine2}
-                    //   required={false}
-                  />
-
-                  <div className='grid md:grid-cols-3 gap-4'>
-                    <FormField
-                      label='City'
-                      name='city'
-                      value={formData.city}
-                      onChange={handleChange}
-                      error={errors.city}
-                    />
-                    <FormField
-                      label='State'
-                      name='state'
-                      value={formData.state}
-                      onChange={handleChange}
-                      error={errors.state}
-                    />
-                    <FormField
-                      label='Zip Code'
-                      name='zipCode'
-                      value={formData.zipCode}
-                      onChange={handleChange}
-                      error={errors.zipCode}
-                    />
-                  </div>
-
-                  <FormField
-                    label='Closest Major Airport'
-                    name='closestAirport'
-                    value={formData.closestAirport}
-                    onChange={handleChange}
-                    error={errors.closestAirport}
-                  />
-
                   <div>
-                    <label htmlFor='additionalInformation'>
-                      Additional Information
-                    </label>
+                    <label htmlFor='eventDescription'>Event Description</label>
                     <textarea
-                      name='additionalInformation'
-                      className='w-full p-2 border-2 rounded border-[#495551] outline-none mt-1 h-24 bg-inherit'
-                      value={formData.additionalInformation}
-                      onChange={handleChange}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor='hearAboutUs'>
-                      How did you hear about Ibidun
-                    </label>
-                    <textarea
-                      name='hearAboutUs'
+                      name='eventDescription'
                       className={`w-full p-2 border-2 rounded border-[#495551] outline-none mt-1 h-24 bg-inherit ${
-                        errors.hearAboutUs ? 'border-red-500' : ''
+                        errors.eventDescription ? 'border-red-500' : ''
                       }`}
-                      value={formData.hearAboutUs}
+                      value={formData.eventDescription}
                       onChange={handleChange}
                     />
-                    {errors.hearAboutUs && (
+                    {errors.eventDescription && (
                       <p className='text-red-500 text-sm mt-1'>
-                        {errors.hearAboutUs}
+                        {errors.eventDescription}
                       </p>
                     )}
                   </div>

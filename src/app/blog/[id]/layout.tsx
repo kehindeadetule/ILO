@@ -54,8 +54,8 @@ export async function generateMetadata({
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
-          url: `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=1&id=${id}`,
-          images: { url: imageUrl || '' },
+          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
+          images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
         twitter: {

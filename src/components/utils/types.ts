@@ -82,19 +82,9 @@ export interface BookingFormData {
   country: string;
   phoneNumber: string;
   churchName: string;
-  churchWebsite: string;
-  typeOfEvent: string;
   dateOfEvent: string;
   eventLocation: string;
-  eventCountry: string;
-  addressLine1: string;
-  addressLine2?: string;
-  city: string;
-  state: string;
-  zipCode: string;
-  closestAirport: string;
-  additionalInformation?: string;
-  hearAboutUs: string;
+  eventDescription?: string;
 }
 
 export type BookingFormErrors = {
