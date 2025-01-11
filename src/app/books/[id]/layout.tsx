@@ -76,7 +76,7 @@ export async function generateMetadata({
 }
 
 // Layout component
-export default function BookLayout({
+export default function BookPostLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -37,48 +37,22 @@ export async function generateMetadata({
     const blog = blogs.find((b: Blog) => b.id === Number(id));
 
     if (blog) {
-      const { imageUrl } = extractAndRemoveImage(
+      const { imageUrl, formatedContent } = extractAndRemoveImage(
         blog.content.rendered
       );
-      console.log('Blog metadata:', {
-        title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-        description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
-          0,
-          160
-        ),
-        openGraph: {
-          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
-            0,
-            160
-          ),
-          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
-          images: [{ url: imageUrl || '' }],
-        },
-        twitter: {
-          card: 'summary_large_image',
-          title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
-            0,
-            160
-          ),
-          images: [imageUrl || ''],
-        },
-      });
+      console.log('blog details', imageUrl, formatedContent, blog.title.rendered)
 
       return {
-        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
+        metadataBase: new URL('https://blog.ibidunlayiojo.com/blog'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-        description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
-          0,
-          160
-        ),
+        description: stripHtmlTagsAndDecode(
+          formatedContent.slice(0, 160)
+        ) as string,
         openGraph: {
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
-            0,
-            160
-          ),
+          description: stripHtmlTagsAndDecode(
+            formatedContent.slice(0, 160)
+          ) as string,
           url: `https://blog.ibidunlayiojo.com/blog/${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
@@ -86,10 +60,9 @@ export async function generateMetadata({
         twitter: {
           card: 'summary_large_image',
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
-          description: stripHtmlTagsAndDecode(blog.excerpt.rendered).slice(
-            0,
-            160
-          ),
+          description: stripHtmlTagsAndDecode(
+            formatedContent.slice(0, 160)
+          ) as string,
           images: [imageUrl || ''],
         },
       };
@@ -105,7 +78,7 @@ export async function generateMetadata({
 }
 
 // Layout component for blog
-export default function BlogLayout({
+export default function BlogPostLayout({
   children,
 }: {
   children: React.ReactNode;
