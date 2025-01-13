@@ -1,5 +1,5 @@
 'use-client';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { FormField } from '../contact-us/FormModal';
 import * as yup from 'yup';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
@@ -89,7 +89,14 @@ const UserAvatar: React.FC<{ fullName: string }> = ({ fullName }) => {
     </div>
   );
 };
-const isAdmin = localStorage.getItem('token') !== null;
+
+const [isAdmin, setIsAdmin] = useState(false);
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    setIsAdmin(localStorage.getItem('token') !== null);
+  }
+}, []);
 
 const SingleComment: React.FC<SingleCommentProps> = ({
   comment,
@@ -338,7 +345,7 @@ const Comments: React.FC<ExtendedCommentProps> = ({ postId, postDate }) => {
   const handleSubmit = async () => {
     setSubmitLoading(true);
     try {
-      const isAdmin = localStorage.getItem('token') !== null;
+      // const isAdmin = localStorage.getItem('token') !== null;
 
       if (isAdmin) {
         // For admin, only validate content
@@ -392,7 +399,7 @@ const Comments: React.FC<ExtendedCommentProps> = ({ postId, postDate }) => {
 
   const handleReplySubmit = async (parentId: number) => {
     try {
-      const isAdmin = localStorage.getItem('token') !== null;
+      // const isAdmin = localStorage.getItem('token') !== null;
 
       if (isAdmin) {
         await adminValidationSchema.validate(
