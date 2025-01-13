@@ -9,12 +9,6 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
-// interface Blog {
-//   id: number;
-//   title: { rendered: string };
-//   content: { rendered: string };
-// }
-
 export async function generateMetadata({
   params,
 }: {
