@@ -297,9 +297,6 @@ const MediaEpisodes: React.FC = () => {
                 />
               </div>
               <div className='mt-6'>
-                {/* <time className='text-sm opacity-80'>
-                    {new Date(episode.date).toLocaleDateString()}
-                  </time> */}
                 <h2 className='font-semibold mt-3 text-xl'>
                   {decodeHtmlEntities(episode.title.rendered)}
                 </h2>
