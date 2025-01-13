@@ -19,12 +19,14 @@ const Login = () => {
   });
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const [alertType, setAlertType] = useState<'success' | 'error' | 'warning'>(
     'success'
   );
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch(
         'https://blog.ibidunlayiojo.com/wp-json/jwt-auth/v1/token',
@@ -44,6 +46,7 @@ const Login = () => {
         setIsLoggedIn(true);
         showNotification('Successfully logged in!', 'success');
         router.push('/');
+        setLoading(false);
       } else {
         throw new Error(data.message);
       }
@@ -52,6 +55,7 @@ const Login = () => {
         error instanceof Error ? error.message : 'Login failed',
         'error'
       );
+      setLoading(false);
     }
   };
 
@@ -113,8 +117,9 @@ const Login = () => {
                 />
                 <button
                   type='submit'
+                  disabled={loading}
                   className='w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 mb-6'>
-                  Login
+                  {loading ? 'Loading...' : 'Login'}
                 </button>
               </form>
             </div>
@@ -139,7 +144,7 @@ const Login = () => {
             className='md:h-40 h-28 w-auto'
           />
           <img
-            src='/assets/logo-l.png}'
+            src='/assets/logo-l.png'
             alt=''
             className='md:h-40 h-28 w-auto'
           />

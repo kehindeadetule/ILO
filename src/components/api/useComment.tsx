@@ -140,13 +140,14 @@ export const useComments = (postId: number, initialPerPage: number = 10) => {
         body: JSON.stringify(wpCommentData),
       });
 
+      const responseData = await response.json();
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to add comment');
+        alert(responseData.message || 'Failed to add comment');
       }
+      setIsLoading(false);
 
       await fetchComments(1);
-      return await response.json();
+      return responseData;
     } catch (error) {
       console.error('Error adding comment:', error);
       throw error;
@@ -187,13 +188,14 @@ export const useComments = (postId: number, initialPerPage: number = 10) => {
         body: JSON.stringify(wpCommentData),
       });
 
+      const responseData = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to add reply');
+        alert(responseData.message || 'Failed to add reply');
       }
 
       await fetchComments(pagination.currentPage);
-      return await response.json();
+      return responseData;
     } catch (error) {
       console.error('Error adding reply:', error);
       throw error;

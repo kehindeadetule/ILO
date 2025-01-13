@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import Navbar from '@/components/common/Navbar';
-import Footer from '@/components/common/Footer';
+import Wrapper from '@/components/common/Wrapper';
 
 export const metadata: Metadata = {
   title: 'Ibidun Layi Ojo',
@@ -28,9 +27,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <Navbar />
-        {children}
-        <Footer />
+        <Wrapper>{children}</Wrapper>
       </body>
     </html>
   );
