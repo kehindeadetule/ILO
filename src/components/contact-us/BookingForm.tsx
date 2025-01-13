@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { FormField } from './FormModal';
 import { BookingFormData } from '../utils/types';
 import Message from './Message';
+import CustomAlert from '../utils/CustomAlert';
 
 interface Country {
   name: {
@@ -36,6 +37,7 @@ const BookingForm: React.FC = () => {
   const [countries, setCountries] = useState<Country[]>([]);
   const [isLoadingCountries, setIsLoadingCountries] = useState(true);
   const [message, setMessage] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const bookingSchema = yup.object().shape({
     firstName: yup.string().required('First name is required'),
@@ -56,7 +58,9 @@ const BookingForm: React.FC = () => {
     const fetchCountries = async () => {
       try {
         const response = await fetch('https://restcountries.com/v3.1/all');
-        if (!response.ok) throw new Error('Failed to fetch countries');
+        if (!response.ok) {
+          setShowAlert(true);
+        }
         const data = await response.json();
         // Sort countries by name
         const sortedCountries = data.sort((a: Country, b: Country) =>
@@ -64,7 +68,7 @@ const BookingForm: React.FC = () => {
         );
         setCountries(sortedCountries);
       } catch (error) {
-        console.error('Error fetching countries:', error);
+        console.log('Error fetching countries:', error);
       } finally {
         setIsLoadingCountries(false);
       }
@@ -121,10 +125,10 @@ const BookingForm: React.FC = () => {
       };
 
       await emailjs.send(
-        'service_ltfctt5',
-        'template_66h1ih1',
+        'service_n4g7p1q',
+        'template_xe54bx5',
         templateParams,
-        'b9-fOTwtOmdsEI_Cr'
+        'qyiwirb-eSmBvDZFR'
       );
       setFormData(initialFormData);
       setMessage(true);
@@ -151,24 +155,30 @@ const BookingForm: React.FC = () => {
       <label htmlFor={name} className='block font-medium'>
         {label}
       </label>
-      <select
-        name={name}
-        id={name}
-        value={formData[name]}
-        onChange={handleChange}
-        disabled={isLoadingCountries}
-        className={`w-full p-2.5 border-2 rounded border-[#495551] outline-none mt-1 bg-inherit ${
-          errors[name] ? 'border-red-500' : ''
-        }`}>
-        <option value=''>
-          {isLoadingCountries ? 'Loading countries...' : 'Select a country'}
-        </option>
-        {countries.map((country) => (
-          <option key={`${name}-${country.cca2}`} value={country.name.common}>
-            {country.name.common}
+      {showAlert ? (
+        <CustomAlert variant='error'>
+          Failed to fetch countries list. Please try again
+        </CustomAlert>
+      ) : (
+        <select
+          name={name}
+          id={name}
+          value={formData[name]}
+          onChange={handleChange}
+          disabled={isLoadingCountries}
+          className={`w-full p-2.5 border-2 rounded border-[#495551] outline-none mt-1 bg-inherit ${
+            errors[name] ? 'border-red-500' : ''
+          }`}>
+          <option value=''>
+            {isLoadingCountries ? 'Loading countries...' : 'Select a country'}
           </option>
-        ))}
-      </select>
+          {countries.map((country) => (
+            <option key={`${name}-${country.cca2}`} value={country.name.common}>
+              {country.name.common}
+            </option>
+          ))}
+        </select>
+      )}
       {errors[name] && (
         <p className='text-red-500 text-sm mt-1'>{errors[name]}</p>
       )}

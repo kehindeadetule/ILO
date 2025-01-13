@@ -130,10 +130,10 @@ const ContactPage = () => {
       };
 
       await emailjs.send(
-        'service_ltfctt5',
-        'template_b60mvuc',
+        'service_n4g7p1q',
+        'template_l2ev4br',
         templateParams,
-        'b9-fOTwtOmdsEI_Cr'
+        'qyiwirb-eSmBvDZFR'
       );
       setMessage(true);
       setFormData(initialFormData);
@@ -148,7 +148,6 @@ const ContactPage = () => {
   };
   return (
     <>
-
       {openBooking ? (
         <BookingForm />
       ) : (
