@@ -92,12 +92,6 @@ const UserAvatar: React.FC<{ fullName: string }> = ({ fullName }) => {
 
 const [isAdmin, setIsAdmin] = useState(false);
 
-useEffect(() => {
-  if (typeof window !== 'undefined') {
-    setIsAdmin(localStorage.getItem('token') !== null);
-  }
-}, []);
-
 const SingleComment: React.FC<SingleCommentProps> = ({
   comment,
   depth = 0,
@@ -110,6 +104,12 @@ const SingleComment: React.FC<SingleCommentProps> = ({
   errors,
 }) => {
   const isReplying = replyingTo === comment.id;
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    setIsAdmin(localStorage.getItem('token') !== null);
+  }
+}, []);
 
   return (
     <div className={`space-y-4 ${depth > 0 ? 'ml-8 mt-4' : ''}`}>
