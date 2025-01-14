@@ -5,13 +5,37 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
+// Generate static params for SSG
+export async function generateStaticParams() {
+  try {
+    const response = await fetch(
+      `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=205&orderby=date&order=desc`
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch posts');
+    }
+
+    const media = await response.json();
+
+    // Return an array of params with slugs
+    return media.map((post: { slug: string }) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
+}
+
+// Generate metadata for each dynamic page
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }): Promise<Metadata> {
   try {
-    const { slug } = await params;
+    const { slug } = params;
 
     const response = await fetch(
       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=205&orderby=date&order=desc`
@@ -37,7 +61,7 @@ export async function generateMetadata({
         openGraph: {
           title: toTitleCase(episode.title.rendered),
           description: formatedContent.slice(0, 160),
-          url: `https://blog.ibidunlayiojo.com/media/${(await params).slug}`,
+          url: `https://blog.ibidunlayiojo.com/media/${slug}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },
@@ -49,7 +73,7 @@ export async function generateMetadata({
         },
       };
     } else {
-      console.warn(`Episode not found`);
+      console.warn(`Episode not found for slug: ${slug}`);
     }
   } catch (error) {
     console.error('Error generating metadata:', error);
