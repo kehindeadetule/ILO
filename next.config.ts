@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['blog.ibidunlayiojo.com'],
   },
-  output:'export',
+  // output:'export',
   trailingSlash: false,
 
 };
