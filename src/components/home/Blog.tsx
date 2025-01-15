@@ -1,4 +1,3 @@
-// import blogBg from '../assets/blog.png';
 'use client';
 import { useFetchBlogs } from '../api/useFetchBlogs';
 import {
