@@ -38,7 +38,7 @@ export const pageMetaTags = {
   books: {
     title: 'Books | Ibidun Layi Ojo',
     description: 'Explore my published books and literary works.',
-    image: '/assets/books-hero.png',
+    image: '/assets/contact-img.jpg',
     type: 'website',
   },
   contact: {
