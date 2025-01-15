@@ -9,6 +9,28 @@ import {
   pageMetaTags,
 } from '@/components/utils/config/metaTags';
 
+
+export async function generateStaticParams() {
+  try {
+    const response = await fetch(
+      'https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts'
+    );
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog list');
+    }
+
+    const blogs = await response.json();
+
+    // Map the list of blogs to an array of params with IDs
+    return blogs.map((blog: { id: number }) => ({
+      id: blog.id.toString(),
+    }));
+  } catch (error) {
+    console.error('Error fetching static params:', error);
+    return [];
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {

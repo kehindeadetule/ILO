@@ -15,6 +15,29 @@ interface Book {
   content: { rendered: string };
 }
 
+ export async function generateStaticParams() {
+   try {
+     const response = await fetch(
+       `https://blog.ibidunlayiojo.com/wp-json/wp/v2/posts?categories=31`
+     );
+
+     if (!response.ok) {
+       throw new Error('Failed to fetch books');
+     }
+
+     const books: Book[] = await response.json();
+
+     // Return a list of paths with `id` for static generation
+     return books.map((book) => ({
+       id: book.id.toString(),
+     }));
+   } catch (error) {
+     console.error('Error generating static params:', error);
+     return [];
+   }
+ }
+
+ 
 export async function generateMetadata({
   params,
 }: {
