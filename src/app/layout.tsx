@@ -8,10 +8,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Ibidun Layi Ojo',
     description: "Welcome to Ibidun Layi Ojo's official website.",
-    url: 'https://blog.ibidunlayiojo.com',
-    images: [
-      { url: 'https://blog.ibidunlayiojo.com/about-banner.png' },
-    ],
+    url: 'https://ibidunlayiojo.com',
+    images: [{ url: 'https://ibidunlayiojo.com/about-banner.png' }],
     siteName: 'Ibidun Layi Ojo',
   },
   twitter: {

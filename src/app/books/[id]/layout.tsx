@@ -64,7 +64,7 @@ export async function generateMetadata({
       );
 
       return {
-        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
+        metadataBase: new URL('https://ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(book.title.rendered)),
         description: stripHtmlTagsAndDecode(
           formatedContent.slice(0, 160)
@@ -74,7 +74,7 @@ export async function generateMetadata({
           description: stripHtmlTagsAndDecode(
             formatedContent.slice(0, 160)
           ) as string,
-          url: `https://blog.ibidunlayiojo.com/books/${id}`,
+          url: `https://ibidunlayiojo.com/books/${id}`,
           images: [{ url: imageUrl || '' }],
           siteName: defaultMetaTags.siteName,
         },

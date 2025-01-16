@@ -60,13 +60,13 @@ export async function generateMetadata({
       const image = imageUrl || pageMetaTags.blog.image;
 
       return {
-        metadataBase: new URL('https://blog.ibidunlayiojo.com'),
+        metadataBase: new URL('https://ibidunlayiojo.com'),
         title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
         description: description,
         openGraph: {
           title: toTitleCase(stripHtmlTagsAndDecode(blog.title.rendered)),
           description: description,
-          url: `https://blog.ibidunlayiojo.com/blog/${id}`,
+          url: `https://ibidunlayiojo.com/blog/${id}`,
           images: image,
           siteName: defaultMetaTags.siteName,
         },
